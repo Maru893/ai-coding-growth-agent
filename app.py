@@ -55,7 +55,7 @@ if page == "Dashboard":
     weekly_focus = load_json(WEEKLY_FOCUS_PATH, [])
     daily_goals = load_json(DAILY_GOALS_PATH, [])
 
-    st.subheader("Riepilogo percorso")
+    st.header("Riepilogo")
 
     col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
 
@@ -80,13 +80,16 @@ if page == "Dashboard":
     with col7:
         st.metric("Obiettivi salvati", len(daily_goals))   
 
+    
+    st.header("Percorso tecnico")
     st.subheader("Profilo")
 
     st.write(f"Nome: {profile.get('name', 'Non impostato')}")
     st.write(f"Livello Python: {profile.get('python_level', 'Non impostato')}")
     st.write(f"Ore settimanali: {profile.get('weekly_hours', 'Non impostato')}")
     st.write(f"Focus principale: {profile.get('main_focus', 'Non impostato')}")
-
+    
+    st.header("Ultime attività")
     st.subheader("Ultimo piano settimanale")
 
     if weekly_plans:
@@ -120,7 +123,7 @@ if page == "Dashboard":
     else:
         st.info("Non hai ancora salvato skill.")
 
-    
+    st.header("Focus operativo")
     st.subheader("Focus della settimana")
 
     if weekly_focus:
@@ -709,6 +712,7 @@ elif page == "Skill Tracker":
     else:
         st.info("Non ci sono skill da eliminare.")
 
+    st.header("Focus operativo")    
 
 # Logica Focus Settimana
 
