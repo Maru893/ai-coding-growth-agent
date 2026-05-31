@@ -17,6 +17,7 @@ CHECKLISTS_PATH = DATA_DIR / "checklists.json"
 SKILLS_PATH = DATA_DIR / "skills.json"
 WEEKLY_FOCUS_PATH = DATA_DIR / "weekly_focus.json"
 DAILY_GOALS_PATH = DATA_DIR / "daily_goals.json"
+TECHNICAL_NOTES_PATH = DATA_DIR / "technical_notes.json"
 
 
 st.set_page_config(
@@ -39,7 +40,8 @@ page = st.sidebar.radio(
         "Progress Tracker",
         "Progetti",
         "Roadmap",
-        "Skill Tracker"
+        "Skill Tracker",
+        "Note Tecniche"
     ]
 )
 
@@ -54,10 +56,11 @@ if page == "Dashboard":
     skills = load_json(SKILLS_PATH, [])
     weekly_focus = load_json(WEEKLY_FOCUS_PATH, [])
     daily_goals = load_json(DAILY_GOALS_PATH, [])
+    technical_notes = load_json(TECHNICAL_NOTES_PATH, [])
 
     st.header("Riepilogo")
 
-    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+    col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
 
     with col1:
         st.metric("Piani salvati", len(weekly_plans))
@@ -79,6 +82,9 @@ if page == "Dashboard":
 
     with col7:
         st.metric("Obiettivi salvati", len(daily_goals))   
+    
+    with col8:
+        st.metric("Note", len(technical_notes))
 
     
     st.header("Percorso tecnico")
@@ -122,6 +128,16 @@ if page == "Dashboard":
         st.write(f"Prossima azione: {last_skill.get('next_action', 'Non impostata')}")
     else:
         st.info("Non hai ancora salvato skill.")
+
+    st.subheader("Ultima nota tecnica")
+
+    if technical_notes:
+        last_note = technical_notes[-1]
+        st.write(f"Categoria: {last_note.get('category', 'Non impostata')}")
+        st.write(f"Titolo: {last_note.get('title', 'Non impostato')}")
+        st.write(f"Cosa ho imparato: {last_note.get('lesson', 'Non impostato')}")
+    else:
+        st.info("Non hai ancora salvato note tecniche.")
 
     st.header("Focus operativo")
     st.subheader("Focus della settimana")
@@ -910,3 +926,102 @@ elif page == "Obiettivo del giorno":
             st.write(f"Obiettivo eliminato: {removed_goal.get('activity_type', 'Tipo non impostato')}")
     else:
         st.info("Non ci sono obiettivi da eliminare.")
+
+# Logica Note Tecniche 
+
+elif page == "Note Tecniche":
+    st.title("Note tecniche")
+
+    category_input = st.selectbox(
+        "Categoria",
+        [
+            "Python",
+            "Streamlit",
+            "JSON",
+            "Git",
+            "GitHub",
+            "Errore",
+            "Debug",
+            "Architettura",
+            "AI Logic",
+            "Altro"
+        ]
+    )
+
+    title_input = st.text_input(
+        "Titolo nota",
+        value=""
+    )
+
+    problem_input = st.text_area(
+        "Problema o concetto",
+        value=""
+    )
+
+    solution_input = st.text_area(
+        "Soluzione o spiegazione",
+        value=""
+    )
+
+    lesson_input = st.text_area(
+        "Cosa ho imparato",
+        value=""
+    )
+
+    next_action_input = st.text_input(
+        "Prossima azione",
+        value="Applicare questa nota nel progetto."
+    )
+
+    if st.button("Salva nota tecnica"):
+        note_entry = {
+            "category": category_input,
+            "title": title_input,
+            "problem": problem_input,
+            "solution": solution_input,
+            "lesson": lesson_input,
+            "next_action": next_action_input
+        }
+
+        existing_notes = load_json(TECHNICAL_NOTES_PATH, [])
+        existing_notes.append(note_entry)
+        save_json(TECHNICAL_NOTES_PATH, existing_notes)
+
+        st.success("Nota tecnica salvata correttamente.")
+
+        st.subheader("Nota appena salvata")
+        st.write(f"Categoria: {note_entry['category']}")
+        st.write(f"Titolo: {note_entry['title']}")
+        st.write(f"Problema o concetto: {note_entry['problem']}")
+        st.write(f"Soluzione: {note_entry['solution']}")
+        st.write(f"Cosa ho imparato: {note_entry['lesson']}")
+        st.write(f"Prossima azione: {note_entry['next_action']}")
+
+    st.subheader("Storico note tecniche")
+
+    saved_notes = load_json(TECHNICAL_NOTES_PATH, [])
+
+    if saved_notes:
+        for index, note in enumerate(reversed(saved_notes), start=1):
+            with st.expander(f"Nota {index} - {note.get('title', 'Titolo non impostato')}"):
+                st.write(f"Categoria: {note.get('category', 'Non impostata')}")
+                st.write(f"Problema o concetto: {note.get('problem', 'Non impostato')}")
+                st.write(f"Soluzione: {note.get('solution', 'Non impostata')}")
+                st.write(f"Cosa ho imparato: {note.get('lesson', 'Non impostato')}")
+                st.write(f"Prossima azione: {note.get('next_action', 'Non impostata')}")
+    else:
+        st.info("Non hai ancora salvato note tecniche.")
+
+    st.subheader("Gestione note tecniche")
+
+    notes_to_manage = load_json(TECHNICAL_NOTES_PATH, [])
+
+    if notes_to_manage:
+        if st.button("Elimina ultima nota salvata"):
+            removed_note = notes_to_manage.pop()
+            save_json(TECHNICAL_NOTES_PATH, notes_to_manage)
+
+            st.warning("Ultima nota eliminata.")
+            st.write(f"Nota eliminata: {removed_note.get('title', 'Titolo non impostato')}")
+    else:
+        st.info("Non ci sono note da eliminare.")

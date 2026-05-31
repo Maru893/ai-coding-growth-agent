@@ -1,0 +1,10 @@
+[
+  {
+    "category": "Python",
+    "title": "NameError weekly_plan",
+    "problem": "weekly_plan veniva usato fuori dal blocco dove veniva creato.",
+    "solution": "Ho spostato il blocco di visualizzazione dentro l’if st.button",
+    "lesson": "In Streamlit il file viene rieseguito dall’inizio a ogni interazione, quindi le variabili create dentro un bottone non esistono sempre.",
+    "next_action": "Fare attenzione all’indentazione e allo stato delle variabili."
+  }
+]
