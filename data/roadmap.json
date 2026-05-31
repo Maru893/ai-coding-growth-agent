@@ -1,0 +1,23 @@
+[
+  {
+    "month": "Mese 1",
+    "focus": "Fondamenta Python, Streamlit e JSON",
+    "goal": "Costruire una base solida per app personali di Coding AI.",
+    "skills": ["Python", "Streamlit", "JSON", "GitHub base"],
+    "project": "AI Coding Growth Agent V1"
+  },
+  {
+    "month": "Mese 2",
+    "focus": "Backend AI e prime integrazioni",
+    "goal": "Preparare il progetto per usare API LLM e logica più avanzata.",
+    "skills": ["FastAPI", "API", "Prompt strutturati", "Logging"],
+    "project": "AI Coding Growth Agent V2"
+  },
+  {
+    "month": "Mese 3",
+    "focus": "Mini prodotto spendibile",
+    "goal": "Trasformare il progetto in una demo utile per portfolio o primi clienti.",
+    "skills": ["LLM API", "Dashboard", "README", "Demo", "Offerta base"],
+    "project": "AI Client Request Assistant"
+  }
+]

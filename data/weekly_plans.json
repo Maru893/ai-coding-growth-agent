@@ -1,0 +1,98 @@
+[
+  {
+    "hours": "3-5",
+    "energy": 3,
+    "focus": "Python",
+    "goal": "migliorare il mio AI Coding Growth Agent",
+    "current_project": "AI Coding Growth Agent",
+    "plan": {
+      "study": "1 ora",
+      "practice": "2-3 ore",
+      "documentation": "1 ora",
+      "difficulty": "semplice",
+      "task_type": "task tecnico mirato",
+      "technical_task": "crea o migliora una funzione Python con input, output e gestione errori"
+    },
+    "checklist": [
+      "Capire il concetto principale della settimana",
+      "Completare un task tecnico piccolo",
+      "Salvare il codice funzionante",
+      "Aggiornare il README o aggiungere una nota",
+      "Scrivere cosa hai imparato"
+    ],
+    "github_output": "Aggiorna il repository con un miglioramento legato a Python.",
+    "money_path": "Questo lavoro può diventare una base per offrire una mini automazione o dashboard collegata a Python."
+  },
+  {
+    "hours": "1-2",
+    "energy": 4,
+    "focus": "AI Logic",
+    "goal": "migliorare il mio AI Coding Growth Agent",
+    "current_project": "AI Coding Growth Agent",
+    "plan": {
+      "study": "30 minuti",
+      "practice": "1 ora",
+      "documentation": "30 minuti",
+      "difficulty": "molto semplice",
+      "task_type": "nuova feature o mini modulo",
+      "technical_task": "simula il comportamento di un agente usando regole e template"
+    },
+    "checklist": [
+      "Capire il concetto principale della settimana",
+      "Completare un task tecnico piccolo",
+      "Salvare il codice funzionante",
+      "Aggiornare il README o aggiungere una nota",
+      "Scrivere cosa hai imparato"
+    ],
+    "github_output": "Aggiorna il repository con un miglioramento legato a AI Logic.",
+    "money_path": "Questo lavoro può diventare una base per offrire una mini automazione o dashboard collegata a AI Logic."
+  },
+  {
+    "hours": "3-5",
+    "energy": 3,
+    "focus": "Python",
+    "goal": "migliorare il mio AI Coding Growth Agent",
+    "current_project": "AI Coding Growth Agent",
+    "plan": {
+      "study": "1 ora",
+      "practice": "2-3 ore",
+      "documentation": "1 ora",
+      "difficulty": "semplice",
+      "task_type": "task tecnico mirato",
+      "technical_task": "crea o migliora una funzione Python con input, output e gestione errori"
+    },
+    "checklist": [
+      "Capire il concetto principale della settimana",
+      "Completare un task tecnico piccolo",
+      "Salvare il codice funzionante",
+      "Aggiornare il README o aggiungere una nota",
+      "Scrivere cosa hai imparato"
+    ],
+    "github_output": "Aggiorna il repository con un miglioramento legato a Python.",
+    "money_path": "Questo lavoro può diventare una base per offrire una mini automazione o dashboard collegata a Python."
+  },
+  {
+    "hours": "3-5",
+    "energy": 3,
+    "focus": "Python",
+    "goal": "migliorare il mio AI Coding Growth Agent",
+    "current_project": "AI Coding Growth Agent",
+    "plan": {
+      "study": "1 ora",
+      "practice": "2-3 ore",
+      "documentation": "1 ora",
+      "difficulty": "semplice",
+      "task_type": "task tecnico mirato",
+      "technical_task": "crea o migliora una funzione Python con input, output e gestione errori"
+    },
+    "checklist": [
+      "Capire il concetto principale della settimana",
+      "Completare un task tecnico piccolo",
+      "Salvare il codice funzionante",
+      "Aggiornare il README o aggiungere una nota",
+      "Scrivere cosa hai imparato"
+    ],
+    "github_output": "Aggiorna il repository con un miglioramento legato a Python.",
+    "money_path": "Questo lavoro può diventare una base per offrire una mini automazione o dashboard collegata a Python."
+  }
+]

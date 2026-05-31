@@ -1,0 +1,30 @@
+[
+  {
+    "week": "Settimana 1",
+    "completed_tasks": "Ho creato il profilo e il generatore di piano settimanale.",
+    "blocked": "Nessun blocco",
+    "learned": "A creare un agente con Pyrhon in grado di : \n1) Salva il tuo profilo personale.\n2) Genera e salva piani settimanali in JSON.\n3) Progress Tracker , questo modulo serve a registrare cosa hai fatto davvero, cosa non hai finito, dove ti sei bloccato e cosa fare dopo.",
+    "next_action": "Migliorare la struttura del codice."
+  },
+  {
+    "week": "Settimana 1",
+    "completed_tasks": "Ho creato il profilo e il generatore di piano settimanale.",
+    "blocked": "nessun blocco",
+    "learned": "migliorare anche il Progress Tracker, così non mostra più solo JSON.",
+    "next_action": "Migliorare la struttura del codice."
+  },
+  {
+    "week": "Settimana 1",
+    "completed_tasks": "Ho creato il profilo e il generatore di piano settimanale.",
+    "blocked": "",
+    "learned": "",
+    "next_action": "Migliorare la struttura del codice."
+  },
+  {
+    "week": "Settimana 1",
+    "completed_tasks": "Ho creato il profilo e il generatore di piano settimanale.",
+    "blocked": "mjkh",
+    "learned": "erger",
+    "next_action": "Migliorare la struttura del codice."
+  }
+]
