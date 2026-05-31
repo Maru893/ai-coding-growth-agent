@@ -14,6 +14,8 @@ PROGRESS_PATH = DATA_DIR / "progress.json"
 PROJECTS_PATH = DATA_DIR / "projects.json"
 ROADMAP_PATH = DATA_DIR / "roadmap.json"
 CHECKLISTS_PATH = DATA_DIR / "checklists.json"
+SKILLS_PATH = DATA_DIR / "skills.json"
+WEEKLY_FOCUS_PATH = DATA_DIR / "weekly_focus.json"
 
 
 st.set_page_config(
@@ -26,7 +28,17 @@ st.sidebar.title("Navigazione")
 
 page = st.sidebar.radio(
     "Vai a",
-    ["Dashboard","Profilo", "Piano settimanale","Checklist", "Progress Tracker", "Progetti", "Roadmap"]
+    [
+        "Dashboard",
+        "Profilo",
+        "Piano settimanale",
+        "Checklist",
+        "Focus settimana",
+        "Progress Tracker",
+        "Progetti",
+        "Roadmap",
+        "Skill Tracker"
+    ]
 )
 
 if page == "Dashboard":
@@ -37,10 +49,12 @@ if page == "Dashboard":
     progress_entries = load_json(PROGRESS_PATH, [])
     projects = load_json(PROJECTS_PATH, [])
     checklists = load_json(CHECKLISTS_PATH, [])
+    skills = load_json(SKILLS_PATH, [])
+    weekly_focus = load_json(WEEKLY_FOCUS_PATH, [])
 
     st.subheader("Riepilogo percorso")
 
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
 
     with col1:
         st.metric("Piani salvati", len(weekly_plans))
@@ -53,6 +67,12 @@ if page == "Dashboard":
     
     with col4:
         st.metric("Checklist salvate", len(checklists))
+
+    with col5:
+        st.metric("Skill salvate", len(skills))
+
+    with col6:
+        st.metric("Focus salvati", len(weekly_focus))    
 
     st.subheader("Profilo")
 
@@ -81,6 +101,30 @@ if page == "Dashboard":
         st.write(f"Prossima azione: {last_project.get('next_action', 'Non impostato')}")
     else:
         st.info("Non hai ancora salvato progetti.")
+
+        
+    st.subheader("Ultima skill salvata")
+
+    if skills:
+        last_skill = skills[-1]
+        st.write(f"Skill: {last_skill.get('skill', 'Non impostata')}")
+        st.write(f"Livello: {last_skill.get('level', 'Non impostato')} su 5")
+        st.write(f"Sicurezza: {last_skill.get('confidence', 'Non impostata')} su 5")
+        st.write(f"Prossima azione: {last_skill.get('next_action', 'Non impostata')}")
+    else:
+        st.info("Non hai ancora salvato skill.")
+
+    
+    st.subheader("Focus della settimana")
+
+    if weekly_focus:
+        last_focus = weekly_focus[-1]
+        st.write(f"Skill focus: {last_focus.get('skill_focus', 'Non impostata')}")
+        st.write(f"Progetto focus: {last_focus.get('project_focus', 'Non impostato')}")
+        st.write(f"Obiettivo: {last_focus.get('weekly_goal', 'Non impostato')}")
+        st.write(f"Priorità: {last_focus.get('priority', 'Non impostata')}")
+    else:
+        st.info("Non hai ancora impostato un focus settimanale.")
 
 # logica Profilo
 
@@ -533,3 +577,186 @@ elif page == "Roadmap":
                     st.write(f"- {skill}")
     else:
         st.info("Roadmap non ancora configurata.")
+
+# Logica Skill Tracker
+
+elif page == "Skill Tracker":
+    st.title("Skill Tracker")
+
+    skill_name_input = st.selectbox(
+        "Skill",
+        [
+            "Python",
+            "Streamlit",
+            "JSON",
+            "Git",
+            "GitHub",
+            "FastAPI",
+            "LLM API",
+            "Prompt Engineering",
+            "RAG",
+            "Agentic AI",
+            "Testing",
+            "Deployment"
+        ]
+    )
+
+    skill_level_input = st.slider(
+        "Livello attuale",
+        min_value=1,
+        max_value=5,
+        value=1
+    )
+
+    confidence_input = st.slider(
+        "Sicurezza personale su questa skill",
+        min_value=1,
+        max_value=5,
+        value=1
+    )
+
+    notes_input = st.text_area(
+        "Note",
+        value=""
+    )
+
+    next_action_input = st.text_input(
+        "Prossima azione",
+        value="Fare un piccolo esercizio pratico."
+    )
+
+    if st.button("Salva skill"):
+        skill_entry = {
+            "skill": skill_name_input,
+            "level": skill_level_input,
+            "confidence": confidence_input,
+            "notes": notes_input,
+            "next_action": next_action_input
+        }
+
+        existing_skills = load_json(SKILLS_PATH, [])
+        existing_skills.append(skill_entry)
+        save_json(SKILLS_PATH, existing_skills)
+
+        st.success("Skill salvata correttamente.")
+
+        st.subheader("Skill appena salvata")
+        st.write(f"Skill: {skill_entry['skill']}")
+        st.write(f"Livello: {skill_entry['level']} su 5")
+        st.write(f"Sicurezza: {skill_entry['confidence']} su 5")
+        st.write(f"Note: {skill_entry['notes']}")
+        st.write(f"Prossima azione: {skill_entry['next_action']}")
+
+    st.subheader("Storico skill")
+
+    saved_skills = load_json(SKILLS_PATH, [])
+
+    if saved_skills:
+        for index, skill in enumerate(reversed(saved_skills), start=1):
+            with st.expander(f"Skill {index} - {skill.get('skill', 'Skill non impostata')}"):
+                st.write(f"Livello: {skill.get('level', 'Non impostato')} su 5")
+                st.write(f"Sicurezza: {skill.get('confidence', 'Non impostata')} su 5")
+                st.write(f"Note: {skill.get('notes', '')}")
+                st.write(f"Prossima azione: {skill.get('next_action', 'Non impostata')}")
+    else:
+        st.info("Non hai ancora salvato skill.")
+
+    st.subheader("Gestione skill")
+
+    skills_to_manage = load_json(SKILLS_PATH, [])
+
+    if skills_to_manage:
+        if st.button("Elimina ultima skill salvata"):
+            removed_skill = skills_to_manage.pop()
+            save_json(SKILLS_PATH, skills_to_manage)
+
+            st.warning("Ultima skill eliminata.")
+            st.write(f"Skill eliminata: {removed_skill.get('skill', 'Skill non impostata')}")
+    else:
+        st.info("Non ci sono skill da eliminare.")
+
+
+# Logica Focus Settimana
+
+elif page == "Focus settimana":
+    st.title("Focus settimana")
+
+    skill_focus_input = st.selectbox(
+        "Skill focus",
+        [
+            "Python",
+            "Streamlit",
+            "JSON",
+            "Git",
+            "GitHub",
+            "FastAPI",
+            "LLM API",
+            "Prompt Engineering",
+            "RAG",
+            "Agentic AI",
+            "Testing",
+            "Deployment"
+        ]
+    )
+
+    project_focus_input = st.text_input(
+        "Progetto focus",
+        value="AI Coding Growth Agent"
+    )
+
+    weekly_goal_input = st.text_area(
+        "Obiettivo della settimana",
+        value="Migliorare il progetto con una feature piccola e utile."
+    )
+
+    priority_input = st.selectbox(
+        "Priorità",
+        ["Bassa", "Media", "Alta"]
+    )
+
+    if st.button("Salva focus settimanale"):
+        focus_entry = {
+            "skill_focus": skill_focus_input,
+            "project_focus": project_focus_input,
+            "weekly_goal": weekly_goal_input,
+            "priority": priority_input
+        }
+
+        existing_focus = load_json(WEEKLY_FOCUS_PATH, [])
+        existing_focus.append(focus_entry)
+        save_json(WEEKLY_FOCUS_PATH, existing_focus)
+
+        st.success("Focus settimanale salvato correttamente.")
+
+        st.subheader("Focus appena salvato")
+        st.write(f"Skill focus: {focus_entry['skill_focus']}")
+        st.write(f"Progetto focus: {focus_entry['project_focus']}")
+        st.write(f"Obiettivo: {focus_entry['weekly_goal']}")
+        st.write(f"Priorità: {focus_entry['priority']}")
+
+    st.subheader("Storico focus settimanali")
+
+    saved_focus = load_json(WEEKLY_FOCUS_PATH, [])
+
+    if saved_focus:
+        for index, focus in enumerate(reversed(saved_focus), start=1):
+            with st.expander(f"Focus {index} - {focus.get('skill_focus', 'Skill non impostata')}"):
+                st.write(f"Progetto: {focus.get('project_focus', 'Non impostato')}")
+                st.write(f"Obiettivo: {focus.get('weekly_goal', 'Non impostato')}")
+                st.write(f"Priorità: {focus.get('priority', 'Non impostata')}")
+    else:
+        st.info("Non hai ancora salvato focus settimanali.")
+
+    st.subheader("Gestione focus")
+
+    focus_to_manage = load_json(WEEKLY_FOCUS_PATH, [])
+
+    if focus_to_manage:
+        if st.button("Elimina ultimo focus salvato"):
+            removed_focus = focus_to_manage.pop()
+            save_json(WEEKLY_FOCUS_PATH, focus_to_manage)
+
+            st.warning("Ultimo focus eliminato.")
+            st.write(f"Focus eliminato: {removed_focus.get('skill_focus', 'Skill non impostata')}")
+    else:
+        st.info("Non ci sono focus da eliminare.")

@@ -31,6 +31,12 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Eliminazione ultima checklist salvata
 - Eliminazione ultimo progresso salvato
 - Eliminazione ultimo progetto salvato
+- Skill Tracker
+- Focus settimana
+- Contatore skill nella Dashboard
+- Contatore focus nella Dashboard
+- Visualizzazione ultima skill salvata nella Dashboard
+- Visualizzazione focus settimanale nella Dashboard
 
 ## Struttura progetto
 
@@ -46,6 +52,9 @@ aiCoding-growth-agent/
 │   ├── progress.json
 │   ├── projects.json
 │   └── roadmap.json
+│   └──skills.json
+│   └──weekly_focus.json
+│     
 ├── exports/
 ├── utils/
 │   ├── json_handler.py
@@ -71,11 +80,19 @@ aiCoding-growth-agent/
 - Storici leggibili
 - Eliminazione ultimo record salvato
 
-### V2
+### V2 in sviluppo
+
+- Skill Tracker
+- Focus settimana
+- Dashboard più operativa
+- Contatori aggiornati
+- Visualizzazione ultima skill
+- Visualizzazione focus settimanale
+
+### Prossimi step V2
 
 - Miglioramento regole del planner
-- Sezione “Focus della settimana”
-- Sezione “Skill tracker”
+- Sezione “Obiettivo del giorno”
 - Migliore gestione dello storico
 - Possibilità di modificare record salvati
 - Prima preparazione per API LLM
