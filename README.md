@@ -42,6 +42,11 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Raccomandazione skill nel piano settimanale
 - Focus settimanale collegato al piano
 - Export Markdown aggiornato con raccomandazioni
+- Obiettivo del giorno
+- Storico obiettivi del giorno
+- Eliminazione ultimo obiettivo salvato
+- Visualizzazione ultimo obiettivo del giorno nella Dashboard
+- Contatore obiettivi giornalieri nella Dashboard
 
 
 ## Struttura progetto
@@ -55,6 +60,7 @@ aiCoding-growth-agent/
 │   ├── profile.json
 │   ├── weekly_plans.json
 │   ├── checklists.json
+│   ├── daily_goals.json
 │   ├── progress.json
 │   ├── projects.json
 │   └── roadmap.json
@@ -90,10 +96,12 @@ aiCoding-growth-agent/
 
 - Skill Tracker
 - Focus settimana
+- Obiettivo del giorno
 - Dashboard più operativa
 - Contatori aggiornati
 - Visualizzazione ultima skill
 - Visualizzazione focus settimanale
+- Visualizzazione ultimo obiettivo del giorno
 - Planner contestuale basato su skill e focus
 - Export Markdown migliorato
 

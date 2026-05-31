@@ -16,6 +16,7 @@ ROADMAP_PATH = DATA_DIR / "roadmap.json"
 CHECKLISTS_PATH = DATA_DIR / "checklists.json"
 SKILLS_PATH = DATA_DIR / "skills.json"
 WEEKLY_FOCUS_PATH = DATA_DIR / "weekly_focus.json"
+DAILY_GOALS_PATH = DATA_DIR / "daily_goals.json"
 
 
 st.set_page_config(
@@ -33,6 +34,7 @@ page = st.sidebar.radio(
         "Profilo",
         "Piano settimanale",
         "Checklist",
+        "Obiettivo del giorno",
         "Focus settimana",
         "Progress Tracker",
         "Progetti",
@@ -51,10 +53,11 @@ if page == "Dashboard":
     checklists = load_json(CHECKLISTS_PATH, [])
     skills = load_json(SKILLS_PATH, [])
     weekly_focus = load_json(WEEKLY_FOCUS_PATH, [])
+    daily_goals = load_json(DAILY_GOALS_PATH, [])
 
     st.subheader("Riepilogo percorso")
 
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
 
     with col1:
         st.metric("Piani salvati", len(weekly_plans))
@@ -73,6 +76,9 @@ if page == "Dashboard":
 
     with col6:
         st.metric("Focus salvati", len(weekly_focus))    
+
+    with col7:
+        st.metric("Obiettivi salvati", len(daily_goals))   
 
     st.subheader("Profilo")
 
@@ -125,6 +131,18 @@ if page == "Dashboard":
         st.write(f"Priorità: {last_focus.get('priority', 'Non impostata')}")
     else:
         st.info("Non hai ancora impostato un focus settimanale.")
+
+    st.subheader("Ultimo obiettivo del giorno")
+
+    if daily_goals:
+        last_daily_goal = daily_goals[-1]
+        st.write(f"Tempo disponibile: {last_daily_goal.get('available_time', 'Non impostato')}")
+        st.write(f"Energia: {last_daily_goal.get('energy', 'Non impostata')}")
+        st.write(f"Tipo attività: {last_daily_goal.get('activity_type', 'Non impostato')}")
+        st.write(f"Obiettivo: {last_daily_goal.get('daily_goal', 'Non impostato')}")
+        st.write(f"Prossima azione: {last_daily_goal.get('next_action', 'Non impostata')}")
+    else:
+        st.info("Non hai ancora salvato obiettivi del giorno.")
 
 # logica Profilo
 
@@ -776,3 +794,115 @@ elif page == "Focus settimana":
             st.write(f"Focus eliminato: {removed_focus.get('skill_focus', 'Skill non impostata')}")
     else:
         st.info("Non ci sono focus da eliminare.")
+
+# Logica Obiettivo del giorno
+
+elif page == "Obiettivo del giorno":
+    st.title("Obiettivo del giorno")
+
+    available_time_input = st.selectbox(
+        "Tempo disponibile oggi",
+        ["30 minuti", "60 minuti", "90 minuti", "2 ore", "3+ ore"]
+    )
+
+    energy_input = st.slider(
+        "Energia di oggi",
+        min_value=1,
+        max_value=5,
+        value=3
+    )
+
+    activity_type_input = st.selectbox(
+        "Tipo attività",
+        ["Studio", "Codice", "Debug", "Documentazione", "Refactor"]
+    )
+
+    current_focus_input = st.text_input(
+        "Focus attuale",
+        value="AI Coding Growth Agent"
+    )
+
+    if st.button("Genera obiettivo del giorno"):
+        if available_time_input == "30 minuti":
+            daily_goal = "Completa un micro task molto piccolo e chiaro."
+        elif available_time_input == "60 minuti":
+            daily_goal = "Studia un concetto e applicalo subito con un esercizio pratico."
+        elif available_time_input == "90 minuti":
+            daily_goal = "Costruisci o migliora una piccola feature del progetto."
+        elif available_time_input == "2 ore":
+            daily_goal = "Completa una feature semplice, testala e aggiorna le note."
+        else:
+            daily_goal = "Lavora su una feature più completa e documenta il risultato."
+
+        if energy_input <= 2:
+            next_action = "Fai un task leggero: rileggi codice, aggiorna README o sistema un file JSON."
+        elif energy_input == 3:
+            next_action = "Fai un task tecnico mirato senza aggiungere troppe cose nuove."
+        else:
+            next_action = "Costruisci una nuova feature o migliora una parte importante del progetto."
+
+        if activity_type_input == "Studio":
+            suggested_task = "Studia un concetto e scrivi 3 note pratiche."
+        elif activity_type_input == "Codice":
+            suggested_task = "Scrivi o migliora una funzione collegata al progetto."
+        elif activity_type_input == "Debug":
+            suggested_task = "Trova un errore, capisci la causa e annota la soluzione."
+        elif activity_type_input == "Documentazione":
+            suggested_task = "Aggiorna README o aggiungi spiegazioni al progetto."
+        else:
+            suggested_task = "Rendi il codice più leggibile senza cambiare il comportamento."
+
+        daily_goal_entry = {
+            "available_time": available_time_input,
+            "energy": energy_input,
+            "activity_type": activity_type_input,
+            "current_focus": current_focus_input,
+            "daily_goal": daily_goal,
+            "suggested_task": suggested_task,
+            "next_action": next_action
+        }
+
+        existing_daily_goals = load_json(DAILY_GOALS_PATH, [])
+        existing_daily_goals.append(daily_goal_entry)
+        save_json(DAILY_GOALS_PATH, existing_daily_goals)
+
+        st.success("Obiettivo del giorno generato e salvato.")
+
+        st.subheader("Obiettivo generato")
+        st.write(f"Tempo disponibile: {daily_goal_entry['available_time']}")
+        st.write(f"Energia: {daily_goal_entry['energy']}")
+        st.write(f"Tipo attività: {daily_goal_entry['activity_type']}")
+        st.write(f"Focus attuale: {daily_goal_entry['current_focus']}")
+        st.write(f"Obiettivo: {daily_goal_entry['daily_goal']}")
+        st.write(f"Task suggerito: {daily_goal_entry['suggested_task']}")
+        st.write(f"Prossima azione: {daily_goal_entry['next_action']}")
+
+    st.subheader("Storico obiettivi del giorno")
+
+    saved_daily_goals = load_json(DAILY_GOALS_PATH, [])
+
+    if saved_daily_goals:
+        for index, goal in enumerate(reversed(saved_daily_goals), start=1):
+            with st.expander(f"Obiettivo {index} - {goal.get('activity_type', 'Tipo non impostato')}"):
+                st.write(f"Tempo disponibile: {goal.get('available_time', 'Non impostato')}")
+                st.write(f"Energia: {goal.get('energy', 'Non impostata')}")
+                st.write(f"Focus: {goal.get('current_focus', 'Non impostato')}")
+                st.write(f"Obiettivo: {goal.get('daily_goal', 'Non impostato')}")
+                st.write(f"Task suggerito: {goal.get('suggested_task', 'Non impostato')}")
+                st.write(f"Prossima azione: {goal.get('next_action', 'Non impostata')}")
+    else:
+        st.info("Non hai ancora salvato obiettivi del giorno.")
+
+    st.subheader("Gestione obiettivi")
+
+    goals_to_manage = load_json(DAILY_GOALS_PATH, [])
+
+    if goals_to_manage:
+        if st.button("Elimina ultimo obiettivo salvato"):
+            removed_goal = goals_to_manage.pop()
+            save_json(DAILY_GOALS_PATH, goals_to_manage)
+
+            st.warning("Ultimo obiettivo eliminato.")
+            st.write(f"Obiettivo eliminato: {removed_goal.get('activity_type', 'Tipo non impostato')}")
+    else:
+        st.info("Non ci sono obiettivi da eliminare.")
