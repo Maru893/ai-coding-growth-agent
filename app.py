@@ -227,13 +227,21 @@ elif page == "Piano settimanale":
     )
 
     if st.button("Genera piano settimanale"):
+        skills = load_json(SKILLS_PATH, [])
+        weekly_focus = load_json(WEEKLY_FOCUS_PATH, [])
+
+        last_skill = skills[-1] if skills else None
+        last_weekly_focus = weekly_focus[-1] if weekly_focus else None
+
         weekly_plan = generate_weekly_plan(
             weekly_hours_input,
             energy_input,
             focus_input,
             goal_input,
-            current_project_input
-        )
+            current_project_input,
+            last_skill,
+            last_weekly_focus
+)
 
         existing_plans = load_json(WEEKLY_PLANS_PATH, [])
         existing_plans.append(weekly_plan)
@@ -265,6 +273,12 @@ elif page == "Piano settimanale":
 
         st.markdown("### Possibile uso monetizzabile")
         st.write(weekly_plan["money_path"])
+
+        st.markdown("### Raccomandazione skill")
+        st.write(weekly_plan["skill_recommendation"])
+
+        st.markdown("### Focus settimanale collegato")
+        st.write(weekly_plan["weekly_focus_recommendation"])
     
 
     st.subheader("Storico piani settimanali")
@@ -280,6 +294,8 @@ elif page == "Piano settimanale":
                 st.write(f"Obiettivo: {plan.get('goal', 'Non impostato')}")
                 st.write(f"Task: {plan.get('plan', {}).get('technical_task', 'Non impostato')}")
                 st.write(f"Output GitHub: {plan.get('github_output', 'Non impostato')}")
+                st.write(f"Raccomandazione skill: {plan.get('skill_recommendation', 'Non impostata')}")
+                st.write(f"Focus collegato: {plan.get('weekly_focus_recommendation', 'Non impostato')}")
     else:
         st.info("Non hai ancora salvato piani settimanali.")
 

@@ -37,6 +37,12 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Contatore focus nella Dashboard
 - Visualizzazione ultima skill salvata nella Dashboard
 - Visualizzazione focus settimanale nella Dashboard
+- Planner migliorato con contesto da Skill Tracker
+- Planner migliorato con contesto da Focus settimana
+- Raccomandazione skill nel piano settimanale
+- Focus settimanale collegato al piano
+- Export Markdown aggiornato con raccomandazioni
+
 
 ## Struttura progetto
 
@@ -88,6 +94,8 @@ aiCoding-growth-agent/
 - Contatori aggiornati
 - Visualizzazione ultima skill
 - Visualizzazione focus settimanale
+- Planner contestuale basato su skill e focus
+- Export Markdown migliorato
 
 ### Prossimi step V2
 

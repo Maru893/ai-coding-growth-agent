@@ -1,4 +1,13 @@
-def generate_weekly_plan(hours, energy, focus, goal, current_project):
+def generate_weekly_plan(
+    hours,
+    energy,
+    focus,
+    goal,
+    current_project,
+    last_skill=None,
+    last_weekly_focus=None
+):
+    
     if hours == "1-2":
         study_time = "30 minuti"
         practice_time = "1 ora"
@@ -40,6 +49,35 @@ def generate_weekly_plan(hours, energy, focus, goal, current_project):
         "scegli un task piccolo e completabile collegato al progetto"
     )
 
+    skill_recommendation = "Mantieni il task semplice e completabile."
+
+    if last_skill:
+        skill_name = last_skill.get("skill", "Non impostata")
+        skill_level = last_skill.get("level", 1)
+        confidence = last_skill.get("confidence", 1)
+
+        if skill_level <= 2 or confidence <= 2:
+            skill_recommendation = (
+                f"Rafforza {skill_name} con un esercizio piccolo. "
+                "Evita feature troppo grandi questa settimana."
+            )
+        elif skill_level == 3:
+            skill_recommendation = (
+                f"Applica {skill_name} a una feature reale del progetto."
+            )
+        else:
+            skill_recommendation = (
+                f"Usa {skill_name} per migliorare qualità, struttura o automazione del progetto."
+            )
+
+    weekly_focus_recommendation = "Nessun focus settimanale impostato."
+
+    if last_weekly_focus:
+        weekly_focus_recommendation = (
+            f"Focus settimanale impostato: {last_weekly_focus.get('skill_focus', 'Non impostato')} "
+            f"sul progetto {last_weekly_focus.get('project_focus', 'Non impostato')}."
+        )
+
     plan = {
         "hours": hours,
         "energy": energy,
@@ -62,7 +100,9 @@ def generate_weekly_plan(hours, energy, focus, goal, current_project):
             "Scrivere cosa hai imparato"
         ],
         "github_output": f"Aggiorna il repository con un miglioramento legato a {focus}.",
-        "money_path": f"Questo lavoro può diventare una base per offrire una mini automazione o dashboard collegata a {focus}."
+        "money_path": f"Questo lavoro può diventare una base per offrire una mini automazione o dashboard collegata a {focus}.",
+        "skill_recommendation": skill_recommendation,
+        "weekly_focus_recommendation": weekly_focus_recommendation
     }
 
     return plan

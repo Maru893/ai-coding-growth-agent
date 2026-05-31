@@ -5,5 +5,12 @@
     "confidence": 1,
     "notes": "",
     "next_action": "Fare un piccolo esercizio pratico."
+  },
+  {
+    "skill": "Python",
+    "level": 2,
+    "confidence": 2,
+    "notes": "",
+    "next_action": "Fare un piccolo esercizio pratico."
   }
 ]

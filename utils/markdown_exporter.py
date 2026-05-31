@@ -45,7 +45,16 @@ def export_weekly_plan_to_markdown(plan, export_dir="exports"):
 ## Possibile uso monetizzabile
 
 {plan.get("money_path", "Non impostato")}
+
+## Raccomandazione skill
+
+{plan.get("skill_recommendation", "Non impostata")}
+
+## Focus settimanale collegato
+
+{plan.get("weekly_focus_recommendation", "Non impostato")}
 """
+
 
     with open(file_path, "w", encoding="utf-8") as file:
         file.write(content)
