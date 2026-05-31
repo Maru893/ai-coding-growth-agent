@@ -26,6 +26,138 @@ st.set_page_config(
     layout="centered"
 )
 
+st.markdown("""
+    <style>
+        .main {
+            padding-top: 1.5rem;
+            padding-bottom: 2rem;
+        }
+
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            max-width: 1200px;
+        }
+
+        h1 {
+            color: #0F172A;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        h2, h3 {
+            color: #1E293B;
+            font-weight: 700;
+        }
+
+        p, label, span {
+            font-size: 0.98rem;
+        }
+
+        .stButton > button {
+            width: 100%;
+            border-radius: 10px;
+            height: 3rem;
+            font-weight: 600;
+            border: 1px solid #CBD5E1;
+        }
+
+        .stButton > button:hover {
+            border: 1px solid #0F172A;
+        }
+
+        .stTextInput > div > div > input,
+        .stTextArea textarea,
+        .stSelectbox div[data-baseweb="select"] > div {
+            border-radius: 10px;
+        }
+
+        section[data-testid="stSidebar"] {
+            background-color: #F8FAFC;
+            border-right: 1px solid #E2E8F0;
+        }
+            
+        section[data-testid="stSidebar"] * {
+            color: #0F172A !important;
+        }
+
+        section[data-testid="stSidebar"] h1,
+        section[data-testid="stSidebar"] h2,
+        section[data-testid="stSidebar"] h3,
+        section[data-testid="stSidebar"] p,
+        section[data-testid="stSidebar"] label,
+        section[data-testid="stSidebar"] span {
+            color: #0F172A !important;
+        }
+
+        section[data-testid="stSidebar"] h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+            
+        section[data-testid="stSidebar"] [role="radiogroup"] label {
+            color: #0F172A !important;
+        }
+
+        section[data-testid="stSidebar"] [role="radiogroup"] span {
+            color: #0F172A !important;
+        }
+
+        .stExpander {
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .metric-card {
+            background-color: #F8FAFC;
+            padding: 1rem;
+            border-radius: 14px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .metric-label {
+            color: #64748B;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .metric-value {
+            color: #0F172A;
+            font-size: 1.7rem;
+            font-weight: 800;
+        }
+
+        .info-card {
+            background-color: #FFFFFF;
+            padding: 1.2rem;
+            border-radius: 14px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 1rem;
+        }
+
+        .page-caption {
+            color: #64748B;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+def render_metric_card(title, value):
+    st.markdown(
+        f"""
+        <div class="metric-card">
+            <div class="metric-label">{title}</div>
+            <div class="metric-value">{value}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 st.sidebar.title("Navigazione")
 
 page = st.sidebar.radio(
@@ -47,6 +179,7 @@ page = st.sidebar.radio(
 
 if page == "Dashboard":
     st.title("Dashboard")
+    st.caption("Controlla il riepilogo del tuo percorso, il focus attuale e le ultime attività salvate.")
 
     profile = load_json(PROFILE_PATH, {})
     weekly_plans = load_json(WEEKLY_PLANS_PATH, [])
@@ -62,33 +195,39 @@ if page == "Dashboard":
 
     col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
 
+    col1, col2, col3, col4 = st.columns(4)
+
     with col1:
-        st.metric("Piani salvati", len(weekly_plans))
+        render_metric_card("Piani", len(weekly_plans))
 
     with col2:
-        st.metric("Progressi salvati", len(progress_entries))
+        render_metric_card("Progressi", len(progress_entries))
 
     with col3:
-        st.metric("Progetti salvati", len(projects))
-    
+        render_metric_card("Progetti", len(projects))
+
     with col4:
-        st.metric("Checklist salvate", len(checklists))
+        render_metric_card("Checklist", len(checklists))
+
+
+    col5, col6, col7, col8 = st.columns(4)
 
     with col5:
-        st.metric("Skill salvate", len(skills))
+        render_metric_card("Skill", len(skills))
 
     with col6:
-        st.metric("Focus salvati", len(weekly_focus))    
+        render_metric_card("Focus", len(weekly_focus))
 
     with col7:
-        st.metric("Obiettivi salvati", len(daily_goals))   
-    
+        render_metric_card("Obiettivi", len(daily_goals))
+
     with col8:
-        st.metric("Note", len(technical_notes))
+        render_metric_card("Note", len(technical_notes))
 
     
     st.header("Percorso tecnico")
     st.subheader("Profilo")
+    
 
     st.write(f"Nome: {profile.get('name', 'Non impostato')}")
     st.write(f"Livello Python: {profile.get('python_level', 'Non impostato')}")
@@ -168,6 +307,7 @@ if page == "Dashboard":
 
 elif page == "Profilo":
     st.title("AI Coding Growth Agent")
+    st.caption("Gestisci le informazioni di base del tuo percorso nel Coding AI.")
     st.write("Il tuo planner personale per crescere nel Coding AI.")
 
     profile = load_json(PROFILE_PATH, {})
@@ -234,36 +374,40 @@ elif page == "Profilo":
 
 elif page == "Piano settimanale":
     st.title("Piano settimanale")
+    st.caption("Genera un piano pratico basato su tempo, energia, focus, skill e obiettivo della settimana.")
 
-    weekly_hours_input = st.selectbox(
-        "Ore disponibili questa settimana",
-        ["1-2", "3-5", "6-8", "9+"],
-        index=1
-    )
+    with st.form("weekly_plan_form"):
+        weekly_hours_input = st.selectbox(
+            "Ore disponibili questa settimana",
+            ["1-2", "3-5", "6-8", "9+"],
+            index=1
+        )
 
-    energy_input = st.slider(
-        "Energia mentale",
-        min_value=1,
-        max_value=5,
-        value=3
-    )
+        energy_input = st.slider(
+            "Energia mentale",
+            min_value=1,
+            max_value=5,
+            value=3
+        )
 
-    focus_input = st.selectbox(
-        "Focus della settimana",
-        ["Python", "Streamlit", "JSON", "AI Logic", "GitHub"]
-    )
+        focus_input = st.selectbox(
+            "Focus della settimana",
+            ["Python", "Streamlit", "JSON", "AI Logic", "GitHub"]
+        )
 
-    goal_input = st.text_input(
-        "Obiettivo pratico della settimana",
-        value="migliorare il mio AI Coding Growth Agent"
-    )
+        goal_input = st.text_input(
+            "Obiettivo pratico della settimana",
+            value="migliorare il mio AI Coding Growth Agent"
+        )
 
-    current_project_input = st.text_input(
-        "Progetto attuale",
-        value="AI Coding Growth Agent"
-    )
+        current_project_input = st.text_input(
+            "Progetto attuale",
+            value="AI Coding Growth Agent"
+        )
 
-    if st.button("Genera piano settimanale"):
+        submitted_weekly_plan = st.form_submit_button("Genera piano settimanale")
+
+    if submitted_weekly_plan:
         skills = load_json(SKILLS_PATH, [])
         weekly_focus = load_json(WEEKLY_FOCUS_PATH, [])
 
@@ -366,6 +510,7 @@ elif page == "Piano settimanale":
 
 elif page == "Checklist":
     st.title("Checklist")
+    st.caption("Trasforma l’ultimo piano settimanale in task completabili e salva l’avanzamento.")
 
     weekly_plans = load_json(WEEKLY_PLANS_PATH, [])
     saved_checklists = load_json(CHECKLISTS_PATH, [])
@@ -447,33 +592,38 @@ elif page == "Checklist":
 
 elif page == "Progress Tracker":
     st.title("Progress Tracker")
+    st.caption("Registra cosa hai completato, dove ti sei bloccato, cosa hai imparato e qual è la prossima azione.")
 
-    week_input = st.text_input(
-        "Settimana di riferimento",
-        value="Settimana 1"
-    )
 
-    completed_tasks_input = st.text_area(
-        "Task completati",
-        value="Ho creato il profilo e il generatore di piano settimanale."
-    )
+    with st.form("progress_form"):
+        week_input = st.text_input(
+            "Settimana di riferimento",
+            value="Settimana 1"
+        )
 
-    blocked_input = st.text_area(
-        "Dove mi sono bloccato?",
-        value=""
-    )
+        completed_tasks_input = st.text_area(
+            "Task completati",
+            value="Ho creato il profilo e il generatore di piano settimanale."
+        )
 
-    learned_input = st.text_area(
-        "Cosa ho imparato?",
-        value=""
-    )
+        blocked_input = st.text_area(
+            "Dove mi sono bloccato?",
+            value=""
+        )
 
-    next_action_input = st.text_input(
-        "Prossima azione",
-        value="Migliorare la struttura del codice."
-    )
+        learned_input = st.text_area(
+            "Cosa ho imparato?",
+            value=""
+        )
 
-    if st.button("Salva progresso"):
+        next_action_input = st.text_input(
+            "Prossima azione",
+            value="Migliorare la struttura del codice."
+        )
+
+        submitted_progress = st.form_submit_button("Salva progresso")
+
+    if submitted_progress:
         progress_entry = {
             "week": week_input,
             "completed_tasks": completed_tasks_input,
@@ -527,38 +677,42 @@ elif page == "Progress Tracker":
 
 elif page == "Progetti":
     st.title("Progetti")
+    st.caption("Organizza i mini progetti del tuo percorso, collegandoli a skill, stato, problema risolto e possibile uso monetizzabile.")
 
-    project_name_input = st.text_input(
-        "Nome progetto",
-        value="AI Coding Growth Agent"
-    )
+    with st.form("project_form"):
+        project_name_input = st.text_input(
+            "Nome progetto",
+            value="AI Coding Growth Agent"
+        )
 
-    project_goal_input = st.text_area(
-        "Problema che risolve",
-        value="Aiutarmi a pianificare studio, pratica e progressi nel Coding AI."
-    )
+        project_goal_input = st.text_area(
+            "Problema che risolve",
+            value="Aiutarmi a pianificare studio, pratica e progressi nel Coding AI."
+        )
 
-    skill_input = st.selectbox(
-        "Skill principale allenata",
-        ["Python", "Streamlit", "JSON", "AI Logic", "GitHub", "FastAPI", "LLM API", "RAG"]
-    )
+        skill_input = st.selectbox(
+            "Skill principale allenata",
+            ["Python", "Streamlit", "JSON", "AI Logic", "GitHub", "FastAPI", "LLM API", "RAG"]
+        )
 
-    project_status_input = st.selectbox(
-        "Stato progetto",
-        ["Idea", "In sviluppo", "MVP funzionante", "Da migliorare", "Completato"]
-    )
+        project_status_input = st.selectbox(
+            "Stato progetto",
+            ["Idea", "In sviluppo", "MVP funzionante", "Da migliorare", "Completato"]
+        )
 
-    monetization_input = st.text_area(
-        "Possibile uso monetizzabile",
-        value="Potrebbe diventare una dashboard personalizzata per studenti, junior developer o freelance."
-    )
+        monetization_input = st.text_area(
+            "Possibile uso monetizzabile",
+            value="Potrebbe diventare una dashboard personalizzata per studenti, junior developer o freelance."
+        )
 
-    next_action_input = st.text_input(
-        "Prossima azione sul progetto",
-        value="Migliorare la struttura e aggiungere una nuova feature."
-    )
+        next_action_input = st.text_input(
+            "Prossima azione sul progetto",
+            value="Migliorare la struttura e aggiungere una nuova feature."
+        )
 
-    if st.button("Salva progetto"):
+        submitted_project = st.form_submit_button("Salva progetto")
+
+    if submitted_project:
         project_entry = {
             "name": project_name_input,
             "problem_solved": project_goal_input,
@@ -616,6 +770,7 @@ elif page == "Progetti":
 elif page == "Roadmap":
 
     st.title("Roadmap")
+    st.caption("Visualizza la direzione dei prossimi mesi, con focus, obiettivi, skill da allenare e progetti principali.")
 
     roadmap = load_json(ROADMAP_PATH, [])
 
@@ -635,50 +790,56 @@ elif page == "Roadmap":
 
 elif page == "Skill Tracker":
     st.title("Skill Tracker")
+    st.caption("")
 
-    skill_name_input = st.selectbox(
-        "Skill",
-        [
-            "Python",
-            "Streamlit",
-            "JSON",
-            "Git",
-            "GitHub",
-            "FastAPI",
-            "LLM API",
-            "Prompt Engineering",
-            "RAG",
-            "Agentic AI",
-            "Testing",
-            "Deployment"
-        ]
-    )
+    with st.form("skill_form"):
 
-    skill_level_input = st.slider(
-        "Livello attuale",
-        min_value=1,
-        max_value=5,
-        value=1
-    )
+        skill_name_input = st.selectbox(
+            "Skill",
+            [
+                "Python",
+                "Streamlit",
+                "JSON",
+                "Git",
+                "GitHub",
+                "FastAPI",
+                "LLM API",
+                "Prompt Engineering",
+                "RAG",
+                "Agentic AI",
+                "Testing",
+                "Deployment"
+            ]
+        )
 
-    confidence_input = st.slider(
-        "Sicurezza personale su questa skill",
-        min_value=1,
-        max_value=5,
-        value=1
-    )
+        skill_level_input = st.slider(
+            "Livello attuale",
+            min_value=1,
+            max_value=5,
+            value=1
+        )
 
-    notes_input = st.text_area(
-        "Note",
-        value=""
-    )
+        confidence_input = st.slider(
+            "Sicurezza personale su questa skill",
+            min_value=1,
+            max_value=5,
+            value=1
+        )
 
-    next_action_input = st.text_input(
-        "Prossima azione",
-        value="Fare un piccolo esercizio pratico."
-    )
+        notes_input = st.text_area(
+            "Note",
+            value=""
+        )
 
-    if st.button("Salva skill"):
+        next_action_input = st.text_input(
+            "Prossima azione",
+            value="Fare un piccolo esercizio pratico."
+        )
+
+
+        submitted_skill = st.form_submit_button("Salva skill")
+
+    if submitted_skill:
         skill_entry = {
             "skill": skill_name_input,
             "level": skill_level_input,
@@ -734,41 +895,45 @@ elif page == "Skill Tracker":
 
 elif page == "Focus settimana":
     st.title("Focus settimana")
+    st.caption("Definisci la skill, il progetto e la priorità principale della settimana.")
 
-    skill_focus_input = st.selectbox(
-        "Skill focus",
-        [
-            "Python",
-            "Streamlit",
-            "JSON",
-            "Git",
-            "GitHub",
-            "FastAPI",
-            "LLM API",
-            "Prompt Engineering",
-            "RAG",
-            "Agentic AI",
-            "Testing",
-            "Deployment"
-        ]
-    )
+    with st.form("weekly_focus_form"):
+        skill_focus_input = st.selectbox(
+            "Skill focus",
+            [
+                "Python",
+                "Streamlit",
+                "JSON",
+                "Git",
+                "GitHub",
+                "FastAPI",
+                "LLM API",
+                "Prompt Engineering",
+                "RAG",
+                "Agentic AI",
+                "Testing",
+                "Deployment"
+            ]
+        )
 
-    project_focus_input = st.text_input(
-        "Progetto focus",
-        value="AI Coding Growth Agent"
-    )
+        project_focus_input = st.text_input(
+            "Progetto focus",
+            value="AI Coding Growth Agent"
+        )
 
-    weekly_goal_input = st.text_area(
-        "Obiettivo della settimana",
-        value="Migliorare il progetto con una feature piccola e utile."
-    )
+        weekly_goal_input = st.text_area(
+            "Obiettivo della settimana",
+            value="Migliorare il progetto con una feature piccola e utile."
+        )
 
-    priority_input = st.selectbox(
-        "Priorità",
-        ["Bassa", "Media", "Alta"]
-    )
+        priority_input = st.selectbox(
+            "Priorità",
+            ["Bassa", "Media", "Alta"]
+        )
 
-    if st.button("Salva focus settimanale"):
+        submitted_focus = st.form_submit_button("Salva focus settimanale")
+
+    if submitted_focus:
         focus_entry = {
             "skill_focus": skill_focus_input,
             "project_focus": project_focus_input,
@@ -819,30 +984,34 @@ elif page == "Focus settimana":
 
 elif page == "Obiettivo del giorno":
     st.title("Obiettivo del giorno")
+    st.caption("Genera un micro obiettivo giornaliero in base al tempo e all’energia disponibili.")
 
-    available_time_input = st.selectbox(
-        "Tempo disponibile oggi",
-        ["30 minuti", "60 minuti", "90 minuti", "2 ore", "3+ ore"]
-    )
+    with st.form("daily_goal_form"):
+        available_time_input = st.selectbox(
+            "Tempo disponibile oggi",
+            ["30 minuti", "60 minuti", "90 minuti", "2 ore", "3+ ore"]
+        )
 
-    energy_input = st.slider(
-        "Energia di oggi",
-        min_value=1,
-        max_value=5,
-        value=3
-    )
+        energy_input = st.slider(
+            "Energia di oggi",
+            min_value=1,
+            max_value=5,
+            value=3
+        )
 
-    activity_type_input = st.selectbox(
-        "Tipo attività",
-        ["Studio", "Codice", "Debug", "Documentazione", "Refactor"]
-    )
+        activity_type_input = st.selectbox(
+            "Tipo attività",
+            ["Studio", "Codice", "Debug", "Documentazione", "Refactor"]
+        )
 
-    current_focus_input = st.text_input(
-        "Focus attuale",
-        value="AI Coding Growth Agent"
-    )
+        current_focus_input = st.text_input(
+            "Focus attuale",
+            value="AI Coding Growth Agent"
+        )
 
-    if st.button("Genera obiettivo del giorno"):
+        submitted_daily_goal = st.form_submit_button("Genera obiettivo del giorno")
+
+    if submitted_daily_goal:
         if available_time_input == "30 minuti":
             daily_goal = "Completa un micro task molto piccolo e chiaro."
         elif available_time_input == "60 minuti":
@@ -931,49 +1100,53 @@ elif page == "Obiettivo del giorno":
 
 elif page == "Note Tecniche":
     st.title("Note tecniche")
+    st.caption("Salva errori, soluzioni e concetti tecnici utili emersi durante lo sviluppo.")
 
-    category_input = st.selectbox(
-        "Categoria",
-        [
-            "Python",
-            "Streamlit",
-            "JSON",
-            "Git",
-            "GitHub",
-            "Errore",
-            "Debug",
-            "Architettura",
-            "AI Logic",
-            "Altro"
-        ]
-    )
+    with st.form("technical_note_form"):
+        category_input = st.selectbox(
+            "Categoria",
+            [
+                "Python",
+                "Streamlit",
+                "JSON",
+                "Git",
+                "GitHub",
+                "Errore",
+                "Debug",
+                "Architettura",
+                "AI Logic",
+                "Altro"
+            ]
+        )
 
-    title_input = st.text_input(
-        "Titolo nota",
-        value=""
-    )
+        title_input = st.text_input(
+            "Titolo nota",
+            value=""
+        )
 
-    problem_input = st.text_area(
-        "Problema o concetto",
-        value=""
-    )
+        problem_input = st.text_area(
+            "Problema o concetto",
+            value=""
+        )
 
-    solution_input = st.text_area(
-        "Soluzione o spiegazione",
-        value=""
-    )
+        solution_input = st.text_area(
+            "Soluzione o spiegazione",
+            value=""
+        )
 
-    lesson_input = st.text_area(
-        "Cosa ho imparato",
-        value=""
-    )
+        lesson_input = st.text_area(
+            "Cosa ho imparato",
+            value=""
+        )
 
-    next_action_input = st.text_input(
-        "Prossima azione",
-        value="Applicare questa nota nel progetto."
-    )
+        next_action_input = st.text_input(
+            "Prossima azione",
+            value="Applicare questa nota nel progetto."
+        )
 
-    if st.button("Salva nota tecnica"):
+        submitted_note = st.form_submit_button("Salva nota tecnica")
+
+    if submitted_note:
         note_entry = {
             "category": category_input,
             "title": title_input,
