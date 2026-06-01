@@ -3,6 +3,7 @@ import streamlit as st
 from utils.json_handler import load_json, save_json
 from utils.planner_rules import generate_weekly_plan
 from utils.markdown_exporter import export_weekly_plan_to_markdown
+from utils.ai_client import generate_ai_response
 
 
 def render_weekly_plan(
@@ -69,6 +70,30 @@ def render_weekly_plan(
         save_json(weekly_plans_path, existing_plans)
 
         st.success("Piano settimanale generato e salvato.")
+
+    ai_prompt = f"""
+        Obiettivo settimana: {goal_input}
+        Focus: {focus_input}
+        Ore disponibili: {weekly_hours_input}
+        Energia: {energy_input}
+        Progetto attuale: {current_project_input}
+        """
+
+    ai_suggestion = generate_ai_response(
+        ai_prompt,
+        mode="weekly_plan",
+        use_mock=True
+         )
+
+    st.header("Suggerimento AI simulato")
+
+    with st.container(border=True):
+        st.subheader(ai_suggestion.get("title", "Suggerimento AI"))
+        st.write(ai_suggestion.get("summary", ""))
+
+        st.write("Suggerimenti:")
+        for suggestion in ai_suggestion.get("suggestions", []):
+            st.write(f"- {suggestion}")
 
     saved_plans = load_json(weekly_plans_path, [])
 
