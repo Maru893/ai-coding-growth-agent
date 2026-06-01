@@ -52,33 +52,44 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Eliminazione ultima nota tecnica
 - Visualizzazione ultima nota tecnica nella Dashboard
 - Contatore note tecniche nella Dashboard
+- UI migliorata con CSS personalizzato
+- Dashboard organizzata in card
+- Metriche Dashboard su card personalizzate
+- Form uniformati nelle sezioni principali
+- Layout a card per Piano settimanale
+- Layout a card per Progress Tracker
+- Layout a card per Skill Tracker
+- Layout a card per Focus settimana
+- Layout a card per Obiettivo del giorno
+- Layout a card per Progetti
+- Layout a card per Note Tecniche
 
 
 ## Struttura progetto
 
 aiCoding-growth-agent/
 ├── app.py
-├── README.md
-├── requirements.txt
-├── .gitignore
-├── data/
-│   ├── profile.json
-│   ├── weekly_plans.json
-│   ├── checklists.json
-│   ├── daily_goals.json
-│   ├── progress.json
-│   ├── projects.json
-│   └── roadmap.json
-│   └──skills.json
-│   └── techinal_notes.json
-│   └──weekly_focus.json
-│     
-├── exports/
+├── pages/
+│   ├── dashboard.py
+│   ├── profile.py
+│   ├── weekly_plan.py
+│   ├── checklist.py
+│   ├── daily_goal.py
+│   ├── weekly_focus.py
+│   ├── progress_tracker.py
+│   ├── projects.py
+│   ├── roadmap.py
+│   ├── skill_tracker.py
+│   └── technical_notes.py
 ├── utils/
 │   ├── json_handler.py
 │   ├── planner_rules.py
 │   └── markdown_exporter.py
-└── venv/
+├── data/
+├── exports/
+├── README.md
+├── requirements.txt
+└── .gitignore
 
 
 ## Roadmap
@@ -112,6 +123,9 @@ aiCoding-growth-agent/
 - Visualizzazione ultima nota tecnica
 - Planner contestuale basato su skill e focus
 - Export Markdown migliorato
+- UI migliorata con CSS personalizzato
+- Layout a card nelle sezioni principali
+- Form uniformati
 
 ### Prossimi step V2
 
