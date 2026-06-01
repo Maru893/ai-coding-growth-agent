@@ -1,16 +1,17 @@
-{
-  "name": "Marouane",
-  "current_stack": [
-    "Laravel",
-    "PHP",
-    "JavaScript"
-  ],
-  "python_level": "zero",
-  "weekly_hours": "3-5",
-  "goal_3_months": "iniziare a guadagnare qualcosa nel settore Coding AI nella mia zona (Genova ) o limitrofe",
-  "preferred_interface": "Streamlit",
-  "storage": "JSON",
-  "api_keys_available": false,
-  "project_type": "personale",
-  "main_focus": "Coding AI"
-}
+
+  {
+    "name": "Marouane",
+    "current_stack": [
+      "Laravel",
+      "PHP",
+      "JavaScript"
+    ],
+    "python_level": "zero",
+    "weekly_hours": "3-5",
+    "goal_3_months": "iniziare a guadagnare qualcosa nel settore Coding AI nella mia zona (Genova ) o limitrofe",
+    "preferred_interface": "Streamlit",
+    "storage": "JSON",
+    "api_keys_available": false,
+    "project_type": "personale",
+    "main_focus": "Coding AI"
+  }
