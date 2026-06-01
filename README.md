@@ -142,3 +142,11 @@ aiCoding-growth-agent/
 - Analisi automatica dei progressi
 - Suggerimenti automatici sui prossimi task
 - Supporto alla monetizzazione dei mini progetti
+
+## Stato progetto
+
+- V1 completata
+- V2 in sviluppo
+- UI migliorata
+- Refactor completato con pagine separate
+- Pubblicato su GitHub personale
