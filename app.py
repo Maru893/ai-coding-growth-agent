@@ -399,36 +399,39 @@ elif page == "Piano settimanale":
     st.title("Piano settimanale")
     st.caption("Genera un piano pratico basato su tempo, energia, focus, skill e obiettivo della settimana.")
 
-    with st.form("weekly_plan_form"):
-        weekly_hours_input = st.selectbox(
-            "Ore disponibili questa settimana",
-            ["1-2", "3-5", "6-8", "9+"],
-            index=1
-        )
+    st.header("Nuovo piano")
 
-        energy_input = st.slider(
-            "Energia mentale",
-            min_value=1,
-            max_value=5,
-            value=3
-        )
+    with st.container(border=True):
+        with st.form("weekly_plan_form"):
+            weekly_hours_input = st.selectbox(
+                "Ore disponibili questa settimana",
+                ["1-2", "3-5", "6-8", "9+"],
+                index=1
+            )
 
-        focus_input = st.selectbox(
-            "Focus della settimana",
-            ["Python", "Streamlit", "JSON", "AI Logic", "GitHub"]
-        )
+            energy_input = st.slider(
+                "Energia mentale",
+                min_value=1,
+                max_value=5,
+                value=3
+            )
 
-        goal_input = st.text_input(
-            "Obiettivo pratico della settimana",
-            value="migliorare il mio AI Coding Growth Agent"
-        )
+            focus_input = st.selectbox(
+                "Focus della settimana",
+                ["Python", "Streamlit", "JSON", "AI Logic", "GitHub"]
+            )
 
-        current_project_input = st.text_input(
-            "Progetto attuale",
-            value="AI Coding Growth Agent"
-        )
+            goal_input = st.text_input(
+                "Obiettivo pratico della settimana",
+                value="migliorare il mio AI Coding Growth Agent"
+            )
 
-        submitted_weekly_plan = st.form_submit_button("Genera piano settimanale")
+            current_project_input = st.text_input(
+                "Progetto attuale",
+                value="AI Coding Growth Agent"
+            )
+
+            submitted_weekly_plan = st.form_submit_button("Genera piano settimanale")
 
     if submitted_weekly_plan:
         skills = load_json(SKILLS_PATH, [])
@@ -445,50 +448,53 @@ elif page == "Piano settimanale":
             current_project_input,
             last_skill,
             last_weekly_focus
-)
+        )
 
         existing_plans = load_json(WEEKLY_PLANS_PATH, [])
         existing_plans.append(weekly_plan)
         save_json(WEEKLY_PLANS_PATH, existing_plans)
 
         st.success("Piano settimanale generato e salvato.")
-        
-
-        st.subheader("Piano generato")
-
-        st.write(f"Focus: {weekly_plan['focus']}")
-        st.write(f"Obiettivo: {weekly_plan['goal']}")
-        st.write(f"Progetto attuale: {weekly_plan['current_project']}")
-
-        st.markdown("### Distribuzione tempo")
-        st.write(f"Studio: {weekly_plan['plan']['study']}")
-        st.write(f"Pratica: {weekly_plan['plan']['practice']}")
-        st.write(f"Documentazione: {weekly_plan['plan']['documentation']}")
-
-        st.markdown("### Task tecnico")
-        st.write(weekly_plan["plan"]["technical_task"])
-
-        st.markdown("### Checklist")
-        for item in weekly_plan["checklist"]:
-            st.checkbox(item, value=False)
-
-        st.markdown("### Output GitHub")
-        st.write(weekly_plan["github_output"])
-
-        st.markdown("### Possibile uso monetizzabile")
-        st.write(weekly_plan["money_path"])
-
-        st.markdown("### Raccomandazione skill")
-        st.write(weekly_plan["skill_recommendation"])
-
-        st.markdown("### Focus settimanale collegato")
-        st.write(weekly_plan["weekly_focus_recommendation"])
-    
-
-    st.subheader("Storico piani settimanali")
 
     saved_plans = load_json(WEEKLY_PLANS_PATH, [])
 
+    st.header("Ultimo piano salvato")
+
+    with st.container(border=True):
+        if saved_plans:
+            last_plan = saved_plans[-1]
+
+            st.write(f"Focus: {last_plan.get('focus', 'Non impostato')}")
+            st.write(f"Obiettivo: {last_plan.get('goal', 'Non impostato')}")
+            st.write(f"Progetto attuale: {last_plan.get('current_project', 'Non impostato')}")
+
+            st.markdown("#### Distribuzione tempo")
+            st.write(f"Studio: {last_plan.get('plan', {}).get('study', 'Non impostato')}")
+            st.write(f"Pratica: {last_plan.get('plan', {}).get('practice', 'Non impostato')}")
+            st.write(f"Documentazione: {last_plan.get('plan', {}).get('documentation', 'Non impostato')}")
+
+            st.markdown("#### Task tecnico")
+            st.write(last_plan.get("plan", {}).get("technical_task", "Non impostato"))
+
+            st.markdown("#### Checklist")
+            for item in last_plan.get("checklist", []):
+                st.write(f"- {item}")
+
+            st.markdown("#### Output GitHub")
+            st.write(last_plan.get("github_output", "Non impostato"))
+
+            st.markdown("#### Possibile uso monetizzabile")
+            st.write(last_plan.get("money_path", "Non impostato"))
+
+            st.markdown("#### Raccomandazione skill")
+            st.write(last_plan.get("skill_recommendation", "Non impostata"))
+
+            st.markdown("#### Focus settimanale collegato")
+            st.write(last_plan.get("weekly_focus_recommendation", "Non impostato"))
+        else:
+            st.info("Non hai ancora generato piani settimanali.")
+
+    st.header("Storico piani settimanali")
 
     if saved_plans:
         for index, plan in enumerate(reversed(saved_plans), start=1):
@@ -503,30 +509,32 @@ elif page == "Piano settimanale":
     else:
         st.info("Non hai ancora salvato piani settimanali.")
 
-    st.subheader("Gestione piani")
+    st.header("Gestione piani")
 
-    plans_to_manage = load_json(WEEKLY_PLANS_PATH, [])
+    with st.container(border=True):
+        plans_to_manage = load_json(WEEKLY_PLANS_PATH, [])
 
-    if plans_to_manage:
-        if st.button("Elimina ultimo piano salvato"):
-            removed_plan = plans_to_manage.pop()
-            save_json(WEEKLY_PLANS_PATH, plans_to_manage)
+        if plans_to_manage:
+            if st.button("Elimina ultimo piano salvato"):
+                removed_plan = plans_to_manage.pop()
+                save_json(WEEKLY_PLANS_PATH, plans_to_manage)
 
-            st.warning("Ultimo piano eliminato.")
-            st.write(f"Piano eliminato: {removed_plan.get('focus', 'Focus non impostato')}")
-    else:
-        st.info("Non ci sono piani da eliminare.")    
+                st.warning("Ultimo piano eliminato.")
+                st.write(f"Piano eliminato: {removed_plan.get('focus', 'Focus non impostato')}")
+        else:
+            st.info("Non ci sono piani da eliminare.")
 
-    st.subheader("Export ultimo piano")
+    st.header("Export")
 
-    saved_plans_for_export = load_json(WEEKLY_PLANS_PATH, [])
+    with st.container(border=True):
+        saved_plans_for_export = load_json(WEEKLY_PLANS_PATH, [])
 
-    if saved_plans_for_export:
+        if saved_plans_for_export:
             if st.button("Esporta ultimo piano in Markdown"):
                 last_plan = saved_plans_for_export[-1]
                 exported_file = export_weekly_plan_to_markdown(last_plan)
                 st.success(f"Piano esportato in: {exported_file}")
-    else:
+        else:
             st.info("Genera almeno un piano prima di esportare.")
 
 # logica Checklist
@@ -617,34 +625,36 @@ elif page == "Progress Tracker":
     st.title("Progress Tracker")
     st.caption("Registra cosa hai completato, dove ti sei bloccato, cosa hai imparato e qual è la prossima azione.")
 
+    st.header("Nuovo progresso")
 
-    with st.form("progress_form"):
-        week_input = st.text_input(
-            "Settimana di riferimento",
-            value="Settimana 1"
-        )
+    with st.container(border=True):
+        with st.form("progress_form"):
+            week_input = st.text_input(
+                "Settimana di riferimento",
+                value="Settimana 1"
+            )
 
-        completed_tasks_input = st.text_area(
-            "Task completati",
-            value="Ho creato il profilo e il generatore di piano settimanale."
-        )
+            completed_tasks_input = st.text_area(
+                "Task completati",
+                value="Ho creato il profilo e il generatore di piano settimanale."
+            )
 
-        blocked_input = st.text_area(
-            "Dove mi sono bloccato?",
-            value=""
-        )
+            blocked_input = st.text_area(
+                "Dove mi sono bloccato?",
+                value=""
+            )
 
-        learned_input = st.text_area(
-            "Cosa ho imparato?",
-            value=""
-        )
+            learned_input = st.text_area(
+                "Cosa ho imparato?",
+                value=""
+            )
 
-        next_action_input = st.text_input(
-            "Prossima azione",
-            value="Migliorare la struttura del codice."
-        )
+            next_action_input = st.text_input(
+                "Prossima azione",
+                value="Migliorare la struttura del codice."
+            )
 
-        submitted_progress = st.form_submit_button("Salva progresso")
+            submitted_progress = st.form_submit_button("Salva progresso")
 
     if submitted_progress:
         progress_entry = {
@@ -661,29 +671,36 @@ elif page == "Progress Tracker":
 
         st.success("Progresso salvato correttamente.")
 
-        st.subheader("Progresso appena salvato")
-        st.write(f"Settimana: {progress_entry['week']}")
-        st.write(f"Task completati: {progress_entry['completed_tasks']}")
-        st.write(f"Blocco: {progress_entry['blocked']}")
-        st.write(f"Cosa ho imparato: {progress_entry['learned']}")
-        st.write(f"Prossima azione: {progress_entry['next_action']}")
+    saved_progress = load_json(PROGRESS_PATH, [])
 
-        st.subheader("Storico progressi")
+    st.header("Ultimo progresso salvato")
 
-        saved_progress = load_json(PROGRESS_PATH, [])
-
+    with st.container(border=True):
         if saved_progress:
-            for index, progress in enumerate(reversed(saved_progress), start=1):
-                with st.expander(f"Progresso {index} - {progress.get('week', 'Settimana non impostata')}"):
-                    st.write(f"Task completati: {progress.get('completed_tasks', 'Non impostato')}")
-                    st.write(f"Blocco: {progress.get('blocked', 'Nessun blocco indicato')}")
-                    st.write(f"Cosa ho imparato: {progress.get('learned', 'Non impostato')}")
-                    st.write(f"Prossima azione: {progress.get('next_action', 'Non impostata')}")
+            last_progress = saved_progress[-1]
+            st.write(f"Settimana: {last_progress.get('week', 'Settimana non impostata')}")
+            st.write(f"Task completati: {last_progress.get('completed_tasks', 'Non impostato')}")
+            st.write(f"Blocco: {last_progress.get('blocked', 'Nessun blocco indicato')}")
+            st.write(f"Cosa ho imparato: {last_progress.get('learned', 'Non impostato')}")
+            st.write(f"Prossima azione: {last_progress.get('next_action', 'Non impostata')}")
         else:
             st.info("Non hai ancora salvato progressi.")
 
-        st.subheader("Gestione progressi")
+    st.header("Storico progressi")
 
+    if saved_progress:
+        for index, progress in enumerate(reversed(saved_progress), start=1):
+            with st.expander(f"Progresso {index} - {progress.get('week', 'Settimana non impostata')}"):
+                st.write(f"Task completati: {progress.get('completed_tasks', 'Non impostato')}")
+                st.write(f"Blocco: {progress.get('blocked', 'Nessun blocco indicato')}")
+                st.write(f"Cosa ho imparato: {progress.get('learned', 'Non impostato')}")
+                st.write(f"Prossima azione: {progress.get('next_action', 'Non impostata')}")
+    else:
+        st.info("Non hai ancora salvato progressi.")
+
+    st.header("Gestione progressi")
+
+    with st.container(border=True):
         progress_to_manage = load_json(PROGRESS_PATH, [])
 
         if progress_to_manage:
@@ -693,8 +710,8 @@ elif page == "Progress Tracker":
 
                 st.warning("Ultimo progresso eliminato.")
                 st.write(f"Progresso eliminato: {removed_progress.get('week', 'Settimana non impostata')}")
-            else:
-                st.info("Non ci sono progressi da eliminare.")
+        else:
+            st.info("Non ci sono progressi da eliminare.")
 
 # logica Progetti
 
