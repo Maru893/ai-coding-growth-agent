@@ -324,7 +324,7 @@ if page == "Dashboard":
         st.write(f"Livello Python: {profile.get('python_level', 'Non impostato')}")
         st.write(f"Ore settimanali: {profile.get('weekly_hours', 'Non impostato')}")
         st.write(f"Focus principale: {profile.get('main_focus', 'Non impostato')}")
-        
+
 # logica Profilo
 
 
@@ -702,38 +702,41 @@ elif page == "Progetti":
     st.title("Progetti")
     st.caption("Organizza i mini progetti del tuo percorso, collegandoli a skill, stato, problema risolto e possibile uso monetizzabile.")
 
-    with st.form("project_form"):
-        project_name_input = st.text_input(
-            "Nome progetto",
-            value="AI Coding Growth Agent"
-        )
+    st.header("Nuovo progetto")
 
-        project_goal_input = st.text_area(
-            "Problema che risolve",
-            value="Aiutarmi a pianificare studio, pratica e progressi nel Coding AI."
-        )
+    with st.container(border=True):
+        with st.form("project_form"):
+            project_name_input = st.text_input(
+                "Nome progetto",
+                value="AI Coding Growth Agent"
+            )
 
-        skill_input = st.selectbox(
-            "Skill principale allenata",
-            ["Python", "Streamlit", "JSON", "AI Logic", "GitHub", "FastAPI", "LLM API", "RAG"]
-        )
+            project_goal_input = st.text_area(
+                "Problema che risolve",
+                value="Aiutarmi a pianificare studio, pratica e progressi nel Coding AI."
+            )
 
-        project_status_input = st.selectbox(
-            "Stato progetto",
-            ["Idea", "In sviluppo", "MVP funzionante", "Da migliorare", "Completato"]
-        )
+            skill_input = st.selectbox(
+                "Skill principale allenata",
+                ["Python", "Streamlit", "JSON", "AI Logic", "GitHub", "FastAPI", "LLM API", "RAG"]
+            )
 
-        monetization_input = st.text_area(
-            "Possibile uso monetizzabile",
-            value="Potrebbe diventare una dashboard personalizzata per studenti, junior developer o freelance."
-        )
+            project_status_input = st.selectbox(
+                "Stato progetto",
+                ["Idea", "In sviluppo", "MVP funzionante", "Da migliorare", "Completato"]
+            )
 
-        next_action_input = st.text_input(
-            "Prossima azione sul progetto",
-            value="Migliorare la struttura e aggiungere una nuova feature."
-        )
+            monetization_input = st.text_area(
+                "Possibile uso monetizzabile",
+                value="Potrebbe diventare una dashboard personalizzata per studenti, junior developer o freelance."
+            )
 
-        submitted_project = st.form_submit_button("Salva progetto")
+            next_action_input = st.text_input(
+                "Prossima azione sul progetto",
+                value="Migliorare la struttura e aggiungere una nuova feature."
+            )
+
+            submitted_project = st.form_submit_button("Salva progetto")
 
     if submitted_project:
         project_entry = {
@@ -751,17 +754,23 @@ elif page == "Progetti":
 
         st.success("Progetto salvato correttamente.")
 
-        st.subheader("Progetto appena salvato")
-        st.write(f"Nome: {project_entry['name']}")
-        st.write(f"Problema che risolve: {project_entry['problem_solved']}")
-        st.write(f"Skill principale: {project_entry['main_skill']}")
-        st.write(f"Stato: {project_entry['status']}")
-        st.write(f"Possibile uso monetizzabile: {project_entry['monetization']}")
-        st.write(f"Prossima azione: {project_entry['next_action']}")
-
-        st.subheader("Storico progetti")
-
     saved_projects = load_json(PROJECTS_PATH, [])
+
+    st.header("Ultimo progetto salvato")
+
+    with st.container(border=True):
+        if saved_projects:
+            last_project = saved_projects[-1]
+            st.write(f"Nome: {last_project.get('name', 'Non impostato')}")
+            st.write(f"Problema che risolve: {last_project.get('problem_solved', 'Non impostato')}")
+            st.write(f"Skill principale: {last_project.get('main_skill', 'Non impostata')}")
+            st.write(f"Stato: {last_project.get('status', 'Non impostato')}")
+            st.write(f"Possibile uso monetizzabile: {last_project.get('monetization', 'Non impostato')}")
+            st.write(f"Prossima azione: {last_project.get('next_action', 'Non impostata')}")
+        else:
+            st.info("Non hai ancora salvato progetti.")
+
+    st.header("Storico progetti")
 
     if saved_projects:
         for index, project in enumerate(reversed(saved_projects), start=1):
@@ -774,17 +783,18 @@ elif page == "Progetti":
     else:
         st.info("Non hai ancora salvato progetti.")
 
-    st.subheader("Gestione progetti")
+    st.header("Gestione progetti")
 
-    projects_to_manage = load_json(PROJECTS_PATH, [])
+    with st.container(border=True):
+        projects_to_manage = load_json(PROJECTS_PATH, [])
 
-    if projects_to_manage:
-        if st.button("Elimina ultimo progetto salvato"):
-            removed_project = projects_to_manage.pop()
-            save_json(PROJECTS_PATH, projects_to_manage)
+        if projects_to_manage:
+            if st.button("Elimina ultimo progetto salvato"):
+                removed_project = projects_to_manage.pop()
+                save_json(PROJECTS_PATH, projects_to_manage)
 
-            st.warning("Ultimo progetto eliminato.")
-            st.write(f"Progetto eliminato: {removed_project.get('name', 'Nome non impostato')}")
+                st.warning("Ultimo progetto eliminato.")
+                st.write(f"Progetto eliminato: {removed_project.get('name', 'Nome non impostato')}")
         else:
             st.info("Non ci sono progetti da eliminare.")
 
@@ -813,54 +823,55 @@ elif page == "Roadmap":
 
 elif page == "Skill Tracker":
     st.title("Skill Tracker")
-    st.caption("")
+    st.caption("Monitora le competenze che stai costruendo nel tuo percorso di Coding AI.")
 
-    with st.form("skill_form"):
+    st.header("Nuova skill")
 
-        skill_name_input = st.selectbox(
-            "Skill",
-            [
-                "Python",
-                "Streamlit",
-                "JSON",
-                "Git",
-                "GitHub",
-                "FastAPI",
-                "LLM API",
-                "Prompt Engineering",
-                "RAG",
-                "Agentic AI",
-                "Testing",
-                "Deployment"
-            ]
-        )
+    with st.container(border=True):
+        with st.form("skill_form"):
+            skill_name_input = st.selectbox(
+                "Skill",
+                [
+                    "Python",
+                    "Streamlit",
+                    "JSON",
+                    "Git",
+                    "GitHub",
+                    "FastAPI",
+                    "LLM API",
+                    "Prompt Engineering",
+                    "RAG",
+                    "Agentic AI",
+                    "Testing",
+                    "Deployment"
+                ]
+            )
 
-        skill_level_input = st.slider(
-            "Livello attuale",
-            min_value=1,
-            max_value=5,
-            value=1
-        )
+            skill_level_input = st.slider(
+                "Livello attuale",
+                min_value=1,
+                max_value=5,
+                value=1
+            )
 
-        confidence_input = st.slider(
-            "Sicurezza personale su questa skill",
-            min_value=1,
-            max_value=5,
-            value=1
-        )
+            confidence_input = st.slider(
+                "Sicurezza personale su questa skill",
+                min_value=1,
+                max_value=5,
+                value=1
+            )
 
-        notes_input = st.text_area(
-            "Note",
-            value=""
-        )
+            notes_input = st.text_area(
+                "Note",
+                value=""
+            )
 
-        next_action_input = st.text_input(
-            "Prossima azione",
-            value="Fare un piccolo esercizio pratico."
-        )
+            next_action_input = st.text_input(
+                "Prossima azione",
+                value="Fare un piccolo esercizio pratico."
+            )
 
-
-        submitted_skill = st.form_submit_button("Salva skill")
+            submitted_skill = st.form_submit_button("Salva skill")
 
     if submitted_skill:
         skill_entry = {
@@ -877,16 +888,22 @@ elif page == "Skill Tracker":
 
         st.success("Skill salvata correttamente.")
 
-        st.subheader("Skill appena salvata")
-        st.write(f"Skill: {skill_entry['skill']}")
-        st.write(f"Livello: {skill_entry['level']} su 5")
-        st.write(f"Sicurezza: {skill_entry['confidence']} su 5")
-        st.write(f"Note: {skill_entry['notes']}")
-        st.write(f"Prossima azione: {skill_entry['next_action']}")
-
-    st.subheader("Storico skill")
-
     saved_skills = load_json(SKILLS_PATH, [])
+
+    st.header("Ultima skill salvata")
+
+    with st.container(border=True):
+        if saved_skills:
+            last_skill = saved_skills[-1]
+            st.write(f"Skill: {last_skill.get('skill', 'Non impostata')}")
+            st.write(f"Livello: {last_skill.get('level', 'Non impostato')} su 5")
+            st.write(f"Sicurezza: {last_skill.get('confidence', 'Non impostata')} su 5")
+            st.write(f"Note: {last_skill.get('notes', '')}")
+            st.write(f"Prossima azione: {last_skill.get('next_action', 'Non impostata')}")
+        else:
+            st.info("Non hai ancora salvato skill.")
+
+    st.header("Storico skill")
 
     if saved_skills:
         for index, skill in enumerate(reversed(saved_skills), start=1):
@@ -898,19 +915,20 @@ elif page == "Skill Tracker":
     else:
         st.info("Non hai ancora salvato skill.")
 
-    st.subheader("Gestione skill")
+    st.header("Gestione skill")
 
-    skills_to_manage = load_json(SKILLS_PATH, [])
+    with st.container(border=True):
+        skills_to_manage = load_json(SKILLS_PATH, [])
 
-    if skills_to_manage:
-        if st.button("Elimina ultima skill salvata"):
-            removed_skill = skills_to_manage.pop()
-            save_json(SKILLS_PATH, skills_to_manage)
+        if skills_to_manage:
+            if st.button("Elimina ultima skill salvata"):
+                removed_skill = skills_to_manage.pop()
+                save_json(SKILLS_PATH, skills_to_manage)
 
-            st.warning("Ultima skill eliminata.")
-            st.write(f"Skill eliminata: {removed_skill.get('skill', 'Skill non impostata')}")
-    else:
-        st.info("Non ci sono skill da eliminare.")
+                st.warning("Ultima skill eliminata.")
+                st.write(f"Skill eliminata: {removed_skill.get('skill', 'Skill non impostata')}")
+        else:
+            st.info("Non ci sono skill da eliminare.")
 
     st.header("Focus operativo")    
 
@@ -920,41 +938,44 @@ elif page == "Focus settimana":
     st.title("Focus settimana")
     st.caption("Definisci la skill, il progetto e la priorità principale della settimana.")
 
-    with st.form("weekly_focus_form"):
-        skill_focus_input = st.selectbox(
-            "Skill focus",
-            [
-                "Python",
-                "Streamlit",
-                "JSON",
-                "Git",
-                "GitHub",
-                "FastAPI",
-                "LLM API",
-                "Prompt Engineering",
-                "RAG",
-                "Agentic AI",
-                "Testing",
-                "Deployment"
-            ]
-        )
+    st.header("Nuovo focus")
 
-        project_focus_input = st.text_input(
-            "Progetto focus",
-            value="AI Coding Growth Agent"
-        )
+    with st.container(border=True):
+        with st.form("weekly_focus_form"):
+            skill_focus_input = st.selectbox(
+                "Skill focus",
+                [
+                    "Python",
+                    "Streamlit",
+                    "JSON",
+                    "Git",
+                    "GitHub",
+                    "FastAPI",
+                    "LLM API",
+                    "Prompt Engineering",
+                    "RAG",
+                    "Agentic AI",
+                    "Testing",
+                    "Deployment"
+                ]
+            )
 
-        weekly_goal_input = st.text_area(
-            "Obiettivo della settimana",
-            value="Migliorare il progetto con una feature piccola e utile."
-        )
+            project_focus_input = st.text_input(
+                "Progetto focus",
+                value="AI Coding Growth Agent"
+            )
 
-        priority_input = st.selectbox(
-            "Priorità",
-            ["Bassa", "Media", "Alta"]
-        )
+            weekly_goal_input = st.text_area(
+                "Obiettivo della settimana",
+                value="Migliorare il progetto con una feature piccola e utile."
+            )
 
-        submitted_focus = st.form_submit_button("Salva focus settimanale")
+            priority_input = st.selectbox(
+                "Priorità",
+                ["Bassa", "Media", "Alta"]
+            )
+
+            submitted_focus = st.form_submit_button("Salva focus settimanale")
 
     if submitted_focus:
         focus_entry = {
@@ -970,15 +991,21 @@ elif page == "Focus settimana":
 
         st.success("Focus settimanale salvato correttamente.")
 
-        st.subheader("Focus appena salvato")
-        st.write(f"Skill focus: {focus_entry['skill_focus']}")
-        st.write(f"Progetto focus: {focus_entry['project_focus']}")
-        st.write(f"Obiettivo: {focus_entry['weekly_goal']}")
-        st.write(f"Priorità: {focus_entry['priority']}")
-
-    st.subheader("Storico focus settimanali")
-
     saved_focus = load_json(WEEKLY_FOCUS_PATH, [])
+
+    st.header("Ultimo focus salvato")
+
+    with st.container(border=True):
+        if saved_focus:
+            last_focus = saved_focus[-1]
+            st.write(f"Skill focus: {last_focus.get('skill_focus', 'Non impostata')}")
+            st.write(f"Progetto focus: {last_focus.get('project_focus', 'Non impostato')}")
+            st.write(f"Obiettivo: {last_focus.get('weekly_goal', 'Non impostato')}")
+            st.write(f"Priorità: {last_focus.get('priority', 'Non impostata')}")
+        else:
+            st.info("Non hai ancora salvato focus settimanali.")
+
+    st.header("Storico focus settimanali")
 
     if saved_focus:
         for index, focus in enumerate(reversed(saved_focus), start=1):
@@ -989,19 +1016,21 @@ elif page == "Focus settimana":
     else:
         st.info("Non hai ancora salvato focus settimanali.")
 
-    st.subheader("Gestione focus")
+    st.header("Gestione focus")
 
-    focus_to_manage = load_json(WEEKLY_FOCUS_PATH, [])
+    with st.container(border=True):
+        focus_to_manage = load_json(WEEKLY_FOCUS_PATH, [])
 
-    if focus_to_manage:
-        if st.button("Elimina ultimo focus salvato"):
-            removed_focus = focus_to_manage.pop()
-            save_json(WEEKLY_FOCUS_PATH, focus_to_manage)
+        if focus_to_manage:
+            if st.button("Elimina ultimo focus salvato"):
+                removed_focus = focus_to_manage.pop()
+                save_json(WEEKLY_FOCUS_PATH, focus_to_manage)
 
-            st.warning("Ultimo focus eliminato.")
-            st.write(f"Focus eliminato: {removed_focus.get('skill_focus', 'Skill non impostata')}")
-    else:
-        st.info("Non ci sono focus da eliminare.")
+                st.warning("Ultimo focus eliminato.")
+                st.write(f"Focus eliminato: {removed_focus.get('skill_focus', 'Skill non impostata')}")
+        else:
+            st.info("Non ci sono focus da eliminare.")
+
 
 # Logica Obiettivo del giorno
 
@@ -1009,30 +1038,33 @@ elif page == "Obiettivo del giorno":
     st.title("Obiettivo del giorno")
     st.caption("Genera un micro obiettivo giornaliero in base al tempo e all’energia disponibili.")
 
-    with st.form("daily_goal_form"):
-        available_time_input = st.selectbox(
-            "Tempo disponibile oggi",
-            ["30 minuti", "60 minuti", "90 minuti", "2 ore", "3+ ore"]
-        )
+    st.header("Nuovo obiettivo")
 
-        energy_input = st.slider(
-            "Energia di oggi",
-            min_value=1,
-            max_value=5,
-            value=3
-        )
+    with st.container(border=True):
+        with st.form("daily_goal_form"):
+            available_time_input = st.selectbox(
+                "Tempo disponibile oggi",
+                ["30 minuti", "60 minuti", "90 minuti", "2 ore", "3+ ore"]
+            )
 
-        activity_type_input = st.selectbox(
-            "Tipo attività",
-            ["Studio", "Codice", "Debug", "Documentazione", "Refactor"]
-        )
+            energy_input = st.slider(
+                "Energia di oggi",
+                min_value=1,
+                max_value=5,
+                value=3
+            )
 
-        current_focus_input = st.text_input(
-            "Focus attuale",
-            value="AI Coding Growth Agent"
-        )
+            activity_type_input = st.selectbox(
+                "Tipo attività",
+                ["Studio", "Codice", "Debug", "Documentazione", "Refactor"]
+            )
 
-        submitted_daily_goal = st.form_submit_button("Genera obiettivo del giorno")
+            current_focus_input = st.text_input(
+                "Focus attuale",
+                value="AI Coding Growth Agent"
+            )
+
+            submitted_daily_goal = st.form_submit_button("Genera obiettivo del giorno")
 
     if submitted_daily_goal:
         if available_time_input == "30 minuti":
@@ -1080,18 +1112,24 @@ elif page == "Obiettivo del giorno":
 
         st.success("Obiettivo del giorno generato e salvato.")
 
-        st.subheader("Obiettivo generato")
-        st.write(f"Tempo disponibile: {daily_goal_entry['available_time']}")
-        st.write(f"Energia: {daily_goal_entry['energy']}")
-        st.write(f"Tipo attività: {daily_goal_entry['activity_type']}")
-        st.write(f"Focus attuale: {daily_goal_entry['current_focus']}")
-        st.write(f"Obiettivo: {daily_goal_entry['daily_goal']}")
-        st.write(f"Task suggerito: {daily_goal_entry['suggested_task']}")
-        st.write(f"Prossima azione: {daily_goal_entry['next_action']}")
-
-    st.subheader("Storico obiettivi del giorno")
-
     saved_daily_goals = load_json(DAILY_GOALS_PATH, [])
+
+    st.header("Ultimo obiettivo salvato")
+
+    with st.container(border=True):
+        if saved_daily_goals:
+            last_daily_goal = saved_daily_goals[-1]
+            st.write(f"Tempo disponibile: {last_daily_goal.get('available_time', 'Non impostato')}")
+            st.write(f"Energia: {last_daily_goal.get('energy', 'Non impostata')}")
+            st.write(f"Tipo attività: {last_daily_goal.get('activity_type', 'Non impostato')}")
+            st.write(f"Focus attuale: {last_daily_goal.get('current_focus', 'Non impostato')}")
+            st.write(f"Obiettivo: {last_daily_goal.get('daily_goal', 'Non impostato')}")
+            st.write(f"Task suggerito: {last_daily_goal.get('suggested_task', 'Non impostato')}")
+            st.write(f"Prossima azione: {last_daily_goal.get('next_action', 'Non impostata')}")
+        else:
+            st.info("Non hai ancora salvato obiettivi del giorno.")
+
+    st.header("Storico obiettivi del giorno")
 
     if saved_daily_goals:
         for index, goal in enumerate(reversed(saved_daily_goals), start=1):
@@ -1105,69 +1143,73 @@ elif page == "Obiettivo del giorno":
     else:
         st.info("Non hai ancora salvato obiettivi del giorno.")
 
-    st.subheader("Gestione obiettivi")
+    st.header("Gestione obiettivi")
 
-    goals_to_manage = load_json(DAILY_GOALS_PATH, [])
+    with st.container(border=True):
+        goals_to_manage = load_json(DAILY_GOALS_PATH, [])
 
-    if goals_to_manage:
-        if st.button("Elimina ultimo obiettivo salvato"):
-            removed_goal = goals_to_manage.pop()
-            save_json(DAILY_GOALS_PATH, goals_to_manage)
+        if goals_to_manage:
+            if st.button("Elimina ultimo obiettivo salvato"):
+                removed_goal = goals_to_manage.pop()
+                save_json(DAILY_GOALS_PATH, goals_to_manage)
 
-            st.warning("Ultimo obiettivo eliminato.")
-            st.write(f"Obiettivo eliminato: {removed_goal.get('activity_type', 'Tipo non impostato')}")
-    else:
-        st.info("Non ci sono obiettivi da eliminare.")
+                st.warning("Ultimo obiettivo eliminato.")
+                st.write(f"Obiettivo eliminato: {removed_goal.get('activity_type', 'Tipo non impostato')}")
+        else:
+            st.info("Non ci sono obiettivi da eliminare.")
 
 # Logica Note Tecniche 
 
 elif page == "Note Tecniche":
-    st.title("Note tecniche")
+    st.title("Note Tecniche")
     st.caption("Salva errori, soluzioni e concetti tecnici utili emersi durante lo sviluppo.")
 
-    with st.form("technical_note_form"):
-        category_input = st.selectbox(
-            "Categoria",
-            [
-                "Python",
-                "Streamlit",
-                "JSON",
-                "Git",
-                "GitHub",
-                "Errore",
-                "Debug",
-                "Architettura",
-                "AI Logic",
-                "Altro"
-            ]
-        )
+    st.header("Nuova nota tecnica")
 
-        title_input = st.text_input(
-            "Titolo nota",
-            value=""
-        )
+    with st.container(border=True):
+        with st.form("technical_note_form"):
+            category_input = st.selectbox(
+                "Categoria",
+                [
+                    "Python",
+                    "Streamlit",
+                    "JSON",
+                    "Git",
+                    "GitHub",
+                    "Errore",
+                    "Debug",
+                    "Architettura",
+                    "AI Logic",
+                    "Altro"
+                ]
+            )
 
-        problem_input = st.text_area(
-            "Problema o concetto",
-            value=""
-        )
+            title_input = st.text_input(
+                "Titolo nota",
+                value=""
+            )
 
-        solution_input = st.text_area(
-            "Soluzione o spiegazione",
-            value=""
-        )
+            problem_input = st.text_area(
+                "Problema o concetto",
+                value=""
+            )
 
-        lesson_input = st.text_area(
-            "Cosa ho imparato",
-            value=""
-        )
+            solution_input = st.text_area(
+                "Soluzione o spiegazione",
+                value=""
+            )
 
-        next_action_input = st.text_input(
-            "Prossima azione",
-            value="Applicare questa nota nel progetto."
-        )
+            lesson_input = st.text_area(
+                "Cosa ho imparato",
+                value=""
+            )
 
-        submitted_note = st.form_submit_button("Salva nota tecnica")
+            next_action_input = st.text_input(
+                "Prossima azione",
+                value="Applicare questa nota nel progetto."
+            )
+
+            submitted_note = st.form_submit_button("Salva nota tecnica")
 
     if submitted_note:
         note_entry = {
@@ -1185,17 +1227,23 @@ elif page == "Note Tecniche":
 
         st.success("Nota tecnica salvata correttamente.")
 
-        st.subheader("Nota appena salvata")
-        st.write(f"Categoria: {note_entry['category']}")
-        st.write(f"Titolo: {note_entry['title']}")
-        st.write(f"Problema o concetto: {note_entry['problem']}")
-        st.write(f"Soluzione: {note_entry['solution']}")
-        st.write(f"Cosa ho imparato: {note_entry['lesson']}")
-        st.write(f"Prossima azione: {note_entry['next_action']}")
-
-    st.subheader("Storico note tecniche")
-
     saved_notes = load_json(TECHNICAL_NOTES_PATH, [])
+
+    st.header("Ultima nota salvata")
+
+    with st.container(border=True):
+        if saved_notes:
+            last_note = saved_notes[-1]
+            st.write(f"Categoria: {last_note.get('category', 'Non impostata')}")
+            st.write(f"Titolo: {last_note.get('title', 'Non impostato')}")
+            st.write(f"Problema o concetto: {last_note.get('problem', 'Non impostato')}")
+            st.write(f"Soluzione: {last_note.get('solution', 'Non impostata')}")
+            st.write(f"Cosa ho imparato: {last_note.get('lesson', 'Non impostato')}")
+            st.write(f"Prossima azione: {last_note.get('next_action', 'Non impostata')}")
+        else:
+            st.info("Non hai ancora salvato note tecniche.")
+
+    st.header("Storico note tecniche")
 
     if saved_notes:
         for index, note in enumerate(reversed(saved_notes), start=1):
@@ -1208,16 +1256,17 @@ elif page == "Note Tecniche":
     else:
         st.info("Non hai ancora salvato note tecniche.")
 
-    st.subheader("Gestione note tecniche")
+    st.header("Gestione note tecniche")
 
-    notes_to_manage = load_json(TECHNICAL_NOTES_PATH, [])
+    with st.container(border=True):
+        notes_to_manage = load_json(TECHNICAL_NOTES_PATH, [])
 
-    if notes_to_manage:
-        if st.button("Elimina ultima nota salvata"):
-            removed_note = notes_to_manage.pop()
-            save_json(TECHNICAL_NOTES_PATH, notes_to_manage)
+        if notes_to_manage:
+            if st.button("Elimina ultima nota salvata"):
+                removed_note = notes_to_manage.pop()
+                save_json(TECHNICAL_NOTES_PATH, notes_to_manage)
 
-            st.warning("Ultima nota eliminata.")
-            st.write(f"Nota eliminata: {removed_note.get('title', 'Titolo non impostato')}")
-    else:
-        st.info("Non ci sono note da eliminare.")
+                st.warning("Ultima nota eliminata.")
+                st.write(f"Nota eliminata: {removed_note.get('title', 'Titolo non impostato')}")
+        else:
+            st.info("Non ci sono note da eliminare.")
