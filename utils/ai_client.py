@@ -1,3 +1,9 @@
+
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
 def generate_mock_ai_response(prompt, mode="weekly_plan"):
     """
     Simula una risposta AI senza usare API esterne.
@@ -48,6 +54,23 @@ def generate_mock_ai_response(prompt, mode="weekly_plan"):
         ]
     }
 
+def get_ai_environment_status():
+    """
+    Legge lo stato della configurazione AI dal file .env.
+    Non effettua chiamate API.
+    """
+
+    provider = os.getenv("AI_PROVIDER", "openai")
+    model = os.getenv("AI_MODEL", "gpt-4.1-mini")
+    api_key = os.getenv("OPENAI_API_KEY", "")
+    use_mock_ai = os.getenv("USE_MOCK_AI", "true").lower() == "true"
+
+    return {
+        "provider": provider,
+        "model": model,
+        "has_api_key": bool(api_key),
+        "use_mock_ai": use_mock_ai
+    }
 
 def generate_ai_response(prompt, mode="weekly_plan", use_mock=True):
     """
@@ -59,5 +82,12 @@ def generate_ai_response(prompt, mode="weekly_plan", use_mock=True):
 
     if use_mock:
         return generate_mock_ai_response(prompt, mode)
+
+    env_status = get_ai_environment_status()
+
+    if not env_status["has_api_key"]:
+        raise ValueError(
+            "API key mancante. Aggiungi OPENAI_API_KEY nel file .env oppure riattiva mock AI."
+        )
 
     raise NotImplementedError("La modalità API reale non è ancora implementata.")

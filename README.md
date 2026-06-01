@@ -63,6 +63,9 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Layout a card per Obiettivo del giorno
 - Layout a card per Progetti
 - Layout a card per Note Tecniche
+- Gestione sicura della modalità AI disattivata
+- Warning UI quando API reale non è ancora implementata
+- AI Settings collegato a Piano settimanale e Obiettivo del giorno
 
 
 ## AI mock mode
@@ -75,6 +78,8 @@ Per ora non vengono usate API esterne. Il sistema usa una modalità mock per sim
 - Obiettivo del giorno
 
 Questa scelta permette di sviluppare e testare la logica dell’app senza costi, senza chiavi API e senza dipendere da servizi esterni.
+
+
 
 ## Configurazione futura API
 
