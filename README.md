@@ -195,3 +195,17 @@ aiCoding-growth-agent/
 - UI migliorata
 - Refactor completato con pagine separate
 - Pubblicato su GitHub personale
+
+## Cosa ho imparato
+
+Durante lo sviluppo di questo progetto ho praticato:
+
+- Creazione di una app con Streamlit
+- Gestione dello stato tramite file JSON
+- Organizzazione del codice in pagine separate
+- Refactor progressivo di un file `app.py` troppo grande
+- Creazione di una UI più ordinata con form, card e sidebar
+- Uso di Git e GitHub su un repository personale
+- Preparazione di una struttura mock AI senza usare API reali
+- Gestione sicura delle variabili ambiente con `.env`
+- Gestione degli errori in modo leggibile per l’utente
