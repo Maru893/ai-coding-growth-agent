@@ -82,21 +82,30 @@ def render_weekly_plan(
 
     ai_settings = load_json(ai_settings_path, {"use_mock_ai": True})
 
-    ai_suggestion = generate_ai_response(
-        ai_prompt,
-        mode="weekly_plan",
-        use_mock=ai_settings.get("use_mock_ai", True)
-    )
     
-    st.header("Suggerimento AI simulato")
+    
+    try:
+        ai_suggestion = generate_ai_response(
+            ai_prompt,
+            mode="weekly_plan",
+            use_mock=ai_settings.get("use_mock_ai", True)
+        )
 
-    with st.container(border=True):
-        st.subheader(ai_suggestion.get("title", "Suggerimento AI"))
-        st.write(ai_suggestion.get("summary", ""))
+        st.header("Suggerimento AI simulato")
 
-        st.write("Suggerimenti:")
-        for suggestion in ai_suggestion.get("suggestions", []):
-            st.write(f"- {suggestion}")
+        with st.container(border=True):
+            st.subheader(ai_suggestion.get("title", "Suggerimento AI"))
+            st.write(ai_suggestion.get("summary", ""))
+
+            st.write("Suggerimenti:")
+            for suggestion in ai_suggestion.get("suggestions", []):
+                st.write(f"- {suggestion}")
+
+    except NotImplementedError:
+        st.warning(
+            "API reale non ancora implementata. "
+            "Riattiva mock AI da AI Settings per continuare a usare i suggerimenti simulati."
+            )
 
     saved_plans = load_json(weekly_plans_path, [])
 
