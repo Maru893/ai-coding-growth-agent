@@ -1,6 +1,7 @@
 import streamlit as st
 
 from utils.json_handler import load_json, save_json
+from utils.ai_client import generate_ai_response
 
 
 def render_daily_goal(daily_goals_path):
@@ -80,6 +81,32 @@ def render_daily_goal(daily_goals_path):
         save_json(daily_goals_path, existing_daily_goals)
 
         st.success("Obiettivo del giorno generato e salvato.")
+        
+        ai_prompt = f"""
+            Tempo disponibile oggi: {available_time_input}
+            Energia: {energy_input}
+            Tipo attività: {activity_type_input}
+            Focus attuale: {current_focus_input}
+            Obiettivo generato: {daily_goal}
+            Task suggerito: {suggested_task}
+            Prossima azione: {next_action}
+            """
+
+        ai_suggestion = generate_ai_response(
+            ai_prompt,
+            mode="daily_goal",
+            use_mock=True
+                )
+
+        st.header("Suggerimento AI simulato")
+
+        with st.container(border=True):
+            st.subheader(ai_suggestion.get("title", "Suggerimento AI"))
+            st.write(ai_suggestion.get("summary", ""))
+
+            st.write("Suggerimenti:")
+            for suggestion in ai_suggestion.get("suggestions", []):
+                st.write(f"- {suggestion}")
 
     saved_daily_goals = load_json(daily_goals_path, [])
 

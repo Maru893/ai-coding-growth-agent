@@ -65,6 +65,29 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Layout a card per Note Tecniche
 
 
+## AI mock mode
+
+Il progetto include una prima struttura per l’integrazione AI tramite `utils/ai_client.py`.
+
+Per ora non vengono usate API esterne. Il sistema usa una modalità mock per simulare suggerimenti AI nelle sezioni:
+
+- Piano settimanale
+- Obiettivo del giorno
+
+Questa scelta permette di sviluppare e testare la logica dell’app senza costi, senza chiavi API e senza dipendere da servizi esterni.
+
+## Configurazione futura API
+
+Il file `.env.example` mostra le variabili previste per una futura integrazione:
+
+```text
+AI_PROVIDER=openai
+AI_MODEL=gpt-4.1-mini
+OPENAI_API_KEY=your_api_key_here
+USE_MOCK_AI=true
+```
+
+
 ## Struttura progetto
 
 aiCoding-growth-agent/
@@ -85,6 +108,7 @@ aiCoding-growth-agent/
 │   ├── json_handler.py
 │   ├── planner_rules.py
 │   └── markdown_exporter.py
+│   └── ai_clients.py
 ├── data/
 ├── exports/
 ├── README.md
