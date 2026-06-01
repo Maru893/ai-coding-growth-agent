@@ -209,3 +209,12 @@ Durante lo sviluppo di questo progetto ho praticato:
 - Preparazione di una struttura mock AI senza usare API reali
 - Gestione sicura delle variabili ambiente con `.env`
 - Gestione degli errori in modo leggibile per l’utente
+
+## Prossimi sviluppi
+
+- Collegare una vera API LLM
+- Aggiungere una pagina per modificare record salvati
+- Migliorare la gestione dello storico
+- Aggiungere filtri per skill, progetti e progressi
+- Esportare più sezioni in Markdown
+- Preparare una demo pubblica con Streamlit Community Cloud
