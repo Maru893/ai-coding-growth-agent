@@ -1,0 +1,6 @@
+{
+  "use_mock_ai": true,
+  "ai_provider": "anthropic",
+  "ai_model": "opus-4.6",
+  "api_status": "not_configured"
+}

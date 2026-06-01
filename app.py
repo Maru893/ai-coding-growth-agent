@@ -16,6 +16,7 @@ from pages.technical_notes import render_technical_notes
 from pages.progress_tracker import render_progress_tracker
 from pages.checklist import render_checklist
 from pages.weekly_plan import render_weekly_plan
+from pages.ai_settings import render_ai_settings
 
 DATA_DIR = Path("data")
 PROFILE_PATH = DATA_DIR / "profile.json"
@@ -28,6 +29,7 @@ SKILLS_PATH = DATA_DIR / "skills.json"
 WEEKLY_FOCUS_PATH = DATA_DIR / "weekly_focus.json"
 DAILY_GOALS_PATH = DATA_DIR / "daily_goals.json"
 TECHNICAL_NOTES_PATH = DATA_DIR / "technical_notes.json"
+AI_SETTINGS_PATH = DATA_DIR / "ai_settings.json"
 
 
 st.set_page_config(
@@ -190,10 +192,10 @@ page = st.sidebar.radio(
         "Progetti",
         "Roadmap",
         "Skill Tracker",
-        "Note Tecniche"
+        "Note Tecniche",
+        "AI Settings"
     ]
 )
-
 if page == "Dashboard":
     render_dashboard(
         PROFILE_PATH,
@@ -264,3 +266,8 @@ elif page == "Obiettivo del giorno":
 
 elif page == "Note Tecniche":
     render_technical_notes(TECHNICAL_NOTES_PATH)
+
+# Logica AI Settings
+
+elif page == "AI Settings":
+    render_ai_settings(AI_SETTINGS_PATH)
