@@ -111,8 +111,12 @@ Questa gestione prepara il progetto per una futura integrazione con API reali ma
 
 ## Struttura progetto
 
+
 aiCoding-growth-agent/
+├── README.md
 ├── app.py
+├── assets/
+│   └── dashboard.png
 ├── pages/
 │   ├── dashboard.py
 │   ├── profile.py
@@ -132,7 +136,6 @@ aiCoding-growth-agent/
 │   └── ai_clients.py
 ├── data/
 ├── exports/
-├── README.md
 ├── requirements.txt
 └── .gitignore
 
