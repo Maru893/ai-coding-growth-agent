@@ -92,6 +92,16 @@ OPENAI_API_KEY=your_api_key_here
 USE_MOCK_AI=true
 ```
 
+## Gestione API key
+
+Il progetto usa `python-dotenv` per leggere variabili locali dal file `.env`.
+
+Il file `.env` non viene caricato su GitHub perché è incluso nel `.gitignore`.
+
+Se `USE_MOCK_AI=false` ma `OPENAI_API_KEY` non è configurata, l’app mostra un warning invece di andare in errore.
+
+Questa gestione prepara il progetto per una futura integrazione con API reali mantenendo sicura la configurazione.
+
 
 ## Struttura progetto
 
