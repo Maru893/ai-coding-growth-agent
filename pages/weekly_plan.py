@@ -101,11 +101,11 @@ def render_weekly_plan(
             for suggestion in ai_suggestion.get("suggestions", []):
                 st.write(f"- {suggestion}")
 
-    except NotImplementedError:
-        st.warning(
-            "API reale non ancora implementata. "
-            "Riattiva mock AI da AI Settings per continuare a usare i suggerimenti simulati."
-            )
+    except (NotImplementedError, ValueError) as error:
+        st.warning(str(error))
+        st.info(
+            "Puoi riattivare mock AI da AI Settings oppure configurare una API key valida nel file .env."
+        )
 
     saved_plans = load_json(weekly_plans_path, [])
 
