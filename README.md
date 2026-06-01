@@ -4,6 +4,12 @@ AI Coding Growth Agent è una mini app personale costruita con Python e Streamli
 
 L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo dal mio livello attuale, dal tempo disponibile ogni settimana e dai progressi reali.
 
+## Screenshot
+
+### Dashboard
+
+![Dashboard](assets/dashboard.png)
+
 ## Stack
 
 - Python
