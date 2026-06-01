@@ -4,7 +4,7 @@ from utils.json_handler import load_json, save_json
 from utils.ai_client import generate_ai_response
 
 
-def render_daily_goal(daily_goals_path):
+def render_daily_goal(daily_goals_path, ai_settings_path):
     st.title("Obiettivo del giorno")
     st.caption("Genera un micro obiettivo giornaliero in base al tempo e all’energia disponibili.")
 
@@ -81,7 +81,7 @@ def render_daily_goal(daily_goals_path):
         save_json(daily_goals_path, existing_daily_goals)
 
         st.success("Obiettivo del giorno generato e salvato.")
-        
+
         ai_prompt = f"""
             Tempo disponibile oggi: {available_time_input}
             Energia: {energy_input}
@@ -91,12 +91,14 @@ def render_daily_goal(daily_goals_path):
             Task suggerito: {suggested_task}
             Prossima azione: {next_action}
             """
+        
+        ai_settings = load_json(ai_settings_path, {"use_mock_ai": True})
 
         ai_suggestion = generate_ai_response(
             ai_prompt,
             mode="daily_goal",
-            use_mock=True
-                )
+            use_mock=ai_settings.get("use_mock_ai", True)
+        )
 
         st.header("Suggerimento AI simulato")
 

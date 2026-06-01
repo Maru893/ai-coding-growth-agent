@@ -7,5 +7,14 @@
     "daily_goal": "Completa un micro task molto piccolo e chiaro.",
     "suggested_task": "Studia un concetto e scrivi 3 note pratiche.",
     "next_action": "Fai un task tecnico mirato senza aggiungere troppe cose nuove."
+  },
+  {
+    "available_time": "2 ore",
+    "energy": 4,
+    "activity_type": "Studio",
+    "current_focus": "AI Coding",
+    "daily_goal": "Completa una feature semplice, testala e aggiorna le note.",
+    "suggested_task": "Studia un concetto e scrivi 3 note pratiche.",
+    "next_action": "Costruisci una nuova feature o migliora una parte importante del progetto."
   }
 ]

@@ -223,7 +223,8 @@ elif page == "Piano settimanale":
     render_weekly_plan(
         WEEKLY_PLANS_PATH,
         SKILLS_PATH,
-        WEEKLY_FOCUS_PATH
+        WEEKLY_FOCUS_PATH,
+        AI_SETTINGS_PATH
     )
 
 # logica Checklist
@@ -260,7 +261,7 @@ elif page == "Focus settimana":
 # Logica Obiettivo del giorno
 
 elif page == "Obiettivo del giorno":
-    render_daily_goal(DAILY_GOALS_PATH)
+    render_daily_goal(DAILY_GOALS_PATH, AI_SETTINGS_PATH)
 
 # Logica Note Tecniche 
 

@@ -9,7 +9,8 @@ from utils.ai_client import generate_ai_response
 def render_weekly_plan(
     weekly_plans_path,
     skills_path,
-    weekly_focus_path
+    weekly_focus_path,
+    ai_settings_path
 ):
     st.title("Piano settimanale")
     st.caption("Genera un piano pratico basato su tempo, energia, focus, skill e obiettivo della settimana.")
@@ -79,12 +80,14 @@ def render_weekly_plan(
         Progetto attuale: {current_project_input}
         """
 
+    ai_settings = load_json(ai_settings_path, {"use_mock_ai": True})
+
     ai_suggestion = generate_ai_response(
         ai_prompt,
         mode="weekly_plan",
-        use_mock=True
-         )
-
+        use_mock=ai_settings.get("use_mock_ai", True)
+    )
+    
     st.header("Suggerimento AI simulato")
 
     with st.container(border=True):
