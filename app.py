@@ -6,6 +6,7 @@ from utils.json_handler import load_json, save_json
 from utils.planner_rules import generate_weekly_plan
 from utils.markdown_exporter import export_weekly_plan_to_markdown
 from pages.dashboard import render_dashboard
+from pages.roadmap import render_roadmap
 
 
 DATA_DIR = Path("data")
@@ -693,23 +694,7 @@ elif page == "Progetti":
 # Logica Roadmap
 
 elif page == "Roadmap":
-
-    st.title("Roadmap")
-    st.caption("Visualizza la direzione dei prossimi mesi, con focus, obiettivi, skill da allenare e progetti principali.")
-
-    roadmap = load_json(ROADMAP_PATH, [])
-
-    if roadmap:
-        for item in roadmap:
-            with st.expander(f"{item.get('month', 'Mese non impostato')} - {item.get('focus', 'Focus non impostato')}"):
-                st.write(f"Obiettivo: {item.get('goal', 'Non impostato')}")
-                st.write(f"Progetto principale: {item.get('project', 'Non impostato')}")
-
-                st.write("Skill da allenare:")
-                for skill in item.get("skills", []):
-                    st.write(f"- {skill}")
-    else:
-        st.info("Roadmap non ancora configurata.")
+    render_roadmap(ROADMAP_PATH)
 
 # Logica Skill Tracker
 
