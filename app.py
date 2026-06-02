@@ -5,18 +5,19 @@ import streamlit as st
 from utils.json_handler import load_json, save_json
 from utils.planner_rules import generate_weekly_plan
 from utils.markdown_exporter import export_weekly_plan_to_markdown
-from pages.dashboard import render_dashboard
-from pages.roadmap import render_roadmap
-from pages.profile import render_profile
-from pages.skill_tracker import render_skill_tracker
-from pages.weekly_focus import render_weekly_focus
-from pages.daily_goal import render_daily_goal
-from pages.projects import render_projects
-from pages.technical_notes import render_technical_notes
-from pages.progress_tracker import render_progress_tracker
-from pages.checklist import render_checklist
-from pages.weekly_plan import render_weekly_plan
-from pages.ai_settings import render_ai_settings
+from app_pages.dashboard import render_dashboard
+from app_pages.profile import render_profile
+from app_pages.weekly_plan import render_weekly_plan
+from app_pages.checklist import render_checklist
+from app_pages.daily_goal import render_daily_goal
+from app_pages.weekly_focus import render_weekly_focus
+from app_pages.progress_tracker import render_progress_tracker
+from app_pages.projects import render_projects
+from app_pages.roadmap import render_roadmap
+from app_pages.skill_tracker import render_skill_tracker
+from app_pages.technical_notes import render_technical_notes
+from app_pages.ai_settings import render_ai_settings
+from app_pages.learning_plan import render_learning_plan
 
 DATA_DIR = Path("data")
 PROFILE_PATH = DATA_DIR / "profile.json"
@@ -30,7 +31,7 @@ WEEKLY_FOCUS_PATH = DATA_DIR / "weekly_focus.json"
 DAILY_GOALS_PATH = DATA_DIR / "daily_goals.json"
 TECHNICAL_NOTES_PATH = DATA_DIR / "technical_notes.json"
 AI_SETTINGS_PATH = DATA_DIR / "ai_settings.json"
-
+LEARNING_PLANS_PATH = DATA_DIR / "learning_plans.json"
 
 st.set_page_config(
     page_title="AI Coding Growth Agent",
@@ -187,6 +188,7 @@ page = st.sidebar.radio(
         "Piano settimanale",
         "Checklist",
         "Obiettivo del giorno",
+        "Learning Plan",
         "Focus settimana",
         "Progress Tracker",
         "Progetti",
@@ -272,3 +274,7 @@ elif page == "Note Tecniche":
 
 elif page == "AI Settings":
     render_ai_settings(AI_SETTINGS_PATH)
+
+# Logica learning plan
+elif page == "Learning Plan":
+    render_learning_plan(LEARNING_PLANS_PATH)
