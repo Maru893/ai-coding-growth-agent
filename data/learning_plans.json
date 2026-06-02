@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "skill": "JSON",
+    "current_level": "zero",
+    "available_time": "30 minuti",
+    "learning_goal": "Capire il concetto e applicarlo al progetto.",
+    "difficulty": "base",
+    "study_block": "10 minuti teoria",
+    "practice_block": "15 minuti pratica",
+    "recap_block": "5 minuti note",
+    "suggested_action": "Studia le fondamenta di JSON e fai un esercizio guidato.",
+    "checklist": [
+      "Capire il concetto principale",
+      "Fare un esempio pratico",
+      "Applicare il concetto al progetto",
+      "Scrivere una nota tecnica",
+      "Definire il prossimo passo"
+    ]
+  }
+]

@@ -30,5 +30,13 @@
     "solution": "",
     "lesson": "Ho separato le risposte mock in funzioni dedicate e usato un dizionario per scegliere la funzione corretta in base alla modalità.",
     "next_action": "Applicare lo stesso approccio quando aggiungerò nuove modalità AI."
+  },
+  {
+    "category": "AI Logic",
+    "title": "Mock AI dinamico con keyword detection",
+    "problem": "",
+    "solution": "",
+    "lesson": "Ho creato una funzione che analizza il prompt, rileva parole chiave e aggiunge suggerimenti personalizzati alla risposta mock.",
+    "next_action": "Usare la stessa logica per migliorare altre modalità AI simulate."
   }
 ]

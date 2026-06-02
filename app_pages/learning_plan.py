@@ -1,6 +1,7 @@
 import streamlit as st
 
 from utils.json_handler import load_json, save_json
+from utils.ai_client import generate_ai_response
 
 
 def generate_learning_plan(skill, current_level, available_time, learning_goal):
@@ -111,6 +112,36 @@ def render_learning_plan(learning_plans_path):
         save_json(learning_plans_path, existing_plans)
 
         st.success("Learning plan generato e salvato.")
+
+        ai_prompt = f"""
+        Skill da studiare: {skill_input}
+        Livello attuale: {current_level_input}
+        Tempo disponibile: {available_time_input}
+        Obiettivo di apprendimento: {learning_goal_input}
+        """
+
+        try:
+            ai_suggestion = generate_ai_response(
+                ai_prompt,
+                mode="skill",
+                use_mock=True
+            )
+
+            st.header("Suggerimento AI simulato")
+
+            with st.container(border=True):
+                st.subheader(ai_suggestion.get("title", "Suggerimento AI"))
+                st.write(ai_suggestion.get("summary", ""))
+
+                st.write("Suggerimenti:")
+                for suggestion in ai_suggestion.get("suggestions", []):
+                    st.write(f"- {suggestion}")
+
+        except (NotImplementedError, ValueError) as error:
+            st.warning(str(error))
+            st.info(
+                "Puoi riattivare mock AI da AI Settings oppure configurare una API key valida nel file .env."
+            )
 
     saved_learning_plans = load_json(learning_plans_path, [])
 
