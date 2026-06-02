@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "skill": "Python",
+    "current_level": "base",
+    "available_time": "60 minuti",
+    "learning_goal": "Capire il concetto e applicarlo al progetto.",
+    "difficulty": "semplice",
+    "study_block": "20 minuti teoria",
+    "practice_block": "30 minuti pratica",
+    "recap_block": "10 minuti note",
+    "suggested_action": "Applica Python a una piccola parte del tuo progetto.",
+    "checklist": [
+      "Capire il concetto principale",
+      "Fare un esempio pratico",
+      "Applicare il concetto al progetto",
+      "Scrivere una nota tecnica",
+      "Definire il prossimo passo"
+    ]
+  }
+]

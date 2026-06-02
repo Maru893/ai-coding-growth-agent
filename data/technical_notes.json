@@ -46,5 +46,13 @@
     "solution": "Ho spostato ai_prompt, try, generate_ai_response ed except dentro il blocco if submitted_learning_plan.",
     "lesson": "In Python una variabile esiste solo dopo essere stata assegnata. In Streamlit bisogna fare attenzione all’indentazione perché lo script viene rieseguito a ogni interazione.",
     "next_action": "Controllare sempre che le variabili create dopo un submit vengano usate dentro lo stesso blocco logico."
+  },
+  {
+    "category": "Python",
+    "title": "Funzionamento collegamento tra AI Settings, ai_client.py e le pagine.",
+    "problem": "",
+    "solution": "",
+    "lesson": "Leggere il testo del prompt.\nCercare parole chiave.\nAggiungere suggerimenti extra.\nMantenere il comportamento attuale se non trova parole chiave.",
+    "next_action": ""
   }
 ]

@@ -2,8 +2,7 @@ from pathlib import Path
 
 import streamlit as st
 
-from utils.json_handler import load_json, save_json
-from utils.planner_rules import generate_weekly_plan
+
 from utils.markdown_exporter import export_weekly_plan_to_markdown
 from app_pages.dashboard import render_dashboard
 from app_pages.profile import render_profile
