@@ -55,7 +55,7 @@ def generate_learning_plan(skill, current_level, available_time, learning_goal):
     }
 
 
-def render_learning_plan(learning_plans_path):
+def render_learning_plan(learning_plans_path, ai_settings_path):
     st.title("Learning Plan")
     st.caption("Crea piccoli piani di apprendimento collegati alle skill che ti servono nel Coding AI.")
 
@@ -120,11 +120,13 @@ def render_learning_plan(learning_plans_path):
         Obiettivo di apprendimento: {learning_goal_input}
         """
 
+        ai_settings = load_json(ai_settings_path, {"use_mock_ai": True})
+
         try:
             ai_suggestion = generate_ai_response(
                 ai_prompt,
                 mode="skill",
-                use_mock=True
+                use_mock=ai_settings.get("use_mock_ai", True)
             )
 
             st.header("Suggerimento AI simulato")

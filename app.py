@@ -279,4 +279,4 @@ elif page == "AI Settings":
 
 # Logica learning plan
 elif page == "Learning Plan":
-    render_learning_plan(LEARNING_PLANS_PATH)
+    render_learning_plan(LEARNING_PLANS_PATH, AI_SETTINGS_PATH)

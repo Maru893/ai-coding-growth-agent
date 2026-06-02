@@ -38,5 +38,13 @@
     "solution": "",
     "lesson": "Ho creato una funzione che analizza il prompt, rileva parole chiave e aggiunge suggerimenti personalizzati alla risposta mock.",
     "next_action": "Usare la stessa logica per migliorare altre modalità AI simulate."
+  },
+  {
+    "category": "Python",
+    "title": "Fix UnboundLocalError in Learning Plan",
+    "problem": "ai_prompt veniva usato prima di essere creato perché il blocco AI era fuori dall’if submitted_learning_plan",
+    "solution": "Ho spostato ai_prompt, try, generate_ai_response ed except dentro il blocco if submitted_learning_plan.",
+    "lesson": "In Python una variabile esiste solo dopo essere stata assegnata. In Streamlit bisogna fare attenzione all’indentazione perché lo script viene rieseguito a ogni interazione.",
+    "next_action": "Controllare sempre che le variabili create dopo un submit vengano usate dentro lo stesso blocco logico."
   }
 ]

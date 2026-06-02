@@ -78,6 +78,8 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Visualizzazione ultimo learning plan nella Dashboard
 - Contatore Learning nella Dashboard
 - Refactor del mock AI client con funzioni dedicate per ogni modalità
+- Mock AI dinamico con keyword detection sul prompt
+- Learning Plan collegato ad AI Settings
 
 ## AI mock mode
 
