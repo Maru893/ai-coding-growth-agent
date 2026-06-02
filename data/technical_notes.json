@@ -1,10 +1,26 @@
 [
   {
-    "category": "Python",
-    "title": "NameError weekly_plan",
-    "problem": "weekly_plan veniva usato fuori dal blocco dove veniva creato.",
-    "solution": "Ho spostato il blocco di visualizzazione dentro l’if st.button",
-    "lesson": "In Streamlit il file viene rieseguito dall’inizio a ogni interazione, quindi le variabili create dentro un bottone non esistono sempre.",
-    "next_action": "Fare attenzione all’indentazione e allo stato delle variabili."
+    "category": "Architettura",
+    "title": "app.py come router principale",
+    "problem": "app.py non contiene più tutta la logica delle pagine. Ora gestisce la configurazione di Streamlit, dei path JSON, dello stile CSS, sidebar (navbar) e routing verso app_pages.",
+    "solution": "Il refactor (ottimizzazione del codice piú leggebile e mantenibile) ha spostato ogni pagina in un file separato. Questo rende il progetto più leggibile e facile da mantenere.",
+    "lesson": "Separare routing, pagine e utility rende il codice più professionale.",
+    "next_action": "Mantenere app.py leggero quando aggiungo nuove funzionalitá."
+  },
+  {
+    "category": "AI Logic",
+    "title": "ai_client.py come punto centrale AI",
+    "problem": "Il progetto non chiama ancora API reali, ma usa un client centrale per generare risposte mock.",
+    "solution": "generate_ai_response decide se usare mock mode o prepararsi alla modalità API. get_ai_environment_status legge le variabili da .env.",
+    "lesson": "Conviene creare un punto unico per gestire l’AI invece di scrivere logica AI dentro ogni pagina.",
+    "next_action": "Preparare una funzione API reale solo quando avrò una chiave configurata."
+  },
+  {
+    "category": "Architettura",
+    "title": "weekly_plan.py collega contesto e AI",
+    "problem": "La pagina Piano settimanale usa più fonti dati: skill, focus settimanale, impostazioni AI e piani salvati.",
+    "solution": "La pagina genera un piano con regole Python, poi aggiunge un suggerimento AI simulato usando ai_client.py.",
+    "lesson": "Una pagina può diventare più intelligente quando legge contesto da più file JSON.",
+    "next_action": "Migliorare la qualità dei suggerimenti AI simulati o collegare API reale più avanti."
   }
 ]

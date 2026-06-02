@@ -4,46 +4,44 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-def generate_mock_ai_response(prompt, mode="weekly_plan"):
-    """
-    Simula una risposta AI senza usare API esterne.
-    Serve per preparare la struttura futura dell'integrazione LLM.
-    """
+def get_weekly_plan_mock_response():
+    return {
+        "title": "Suggerimento AI simulato per il piano settimanale",
+        "summary": "Concentrati su un task piccolo, misurabile e collegato al tuo progetto principale.",
+        "suggestions": [
+            "Scegli una sola skill da migliorare questa settimana.",
+            "Costruisci una feature piccola ma funzionante.",
+            "Aggiorna README o note tecniche dopo il lavoro.",
+            "Salva un progresso a fine sessione."
+        ]
+    }
 
-    if mode == "weekly_plan":
-        return {
-            "title": "Suggerimento AI simulato per il piano settimanale",
-            "summary": "Concentrati su un task piccolo, misurabile e collegato al tuo progetto principale.",
-            "suggestions": [
-                "Scegli una sola skill da migliorare questa settimana.",
-                "Costruisci una feature piccola ma funzionante.",
-                "Aggiorna README o note tecniche dopo il lavoro.",
-                "Salva un progresso a fine sessione."
-            ]
-        }
 
-    if mode == "daily_goal":
-        return {
-            "title": "Suggerimento AI simulato per l'obiettivo del giorno",
-            "summary": "Usa il tempo disponibile per completare un micro task.",
-            "suggestions": [
-                "Evita di iniziare troppe cose insieme.",
-                "Scegli un task che puoi finire oggi.",
-                "Scrivi una nota tecnica se incontri un errore."
-            ]
-        }
+def get_daily_goal_mock_response():
+    return {
+        "title": "Suggerimento AI simulato per l'obiettivo del giorno",
+        "summary": "Usa il tempo disponibile per completare un micro task.",
+        "suggestions": [
+            "Evita di iniziare troppe cose insieme.",
+            "Scegli un task che puoi finire oggi.",
+            "Scrivi una nota tecnica se incontri un errore."
+        ]
+    }
 
-    if mode == "skill":
-        return {
-            "title": "Suggerimento AI simulato per la skill",
-            "summary": "Rafforza la skill con pratica diretta nel progetto.",
-            "suggestions": [
-                "Fai un esercizio piccolo.",
-                "Collega l'esercizio a una feature reale.",
-                "Misura il livello di sicurezza dopo averlo completato."
-            ]
-        }
 
+def get_skill_mock_response():
+    return {
+        "title": "Suggerimento AI simulato per la skill",
+        "summary": "Rafforza la skill con pratica diretta nel progetto.",
+        "suggestions": [
+            "Fai un esercizio piccolo.",
+            "Collega l'esercizio a una feature reale.",
+            "Misura il livello di sicurezza dopo averlo completato."
+        ]
+    }
+
+
+def get_default_mock_response():
     return {
         "title": "Suggerimento AI simulato",
         "summary": "Risposta mock generata correttamente.",
@@ -53,6 +51,23 @@ def generate_mock_ai_response(prompt, mode="weekly_plan"):
             "Salva il risultato."
         ]
     }
+
+
+def generate_mock_ai_response(prompt, mode="weekly_plan"):
+    """
+    Simula una risposta AI senza usare API esterne.
+    Il parametro prompt è accettato per mantenere la stessa struttura della futura API reale.
+    """
+
+    mock_responses = {
+        "weekly_plan": get_weekly_plan_mock_response,
+        "daily_goal": get_daily_goal_mock_response,
+        "skill": get_skill_mock_response
+    }
+
+    response_function = mock_responses.get(mode, get_default_mock_response)
+
+    return response_function()
 
 def get_ai_environment_status():
     """
