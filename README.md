@@ -72,6 +72,11 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Gestione sicura della modalità AI disattivata
 - Warning UI quando API reale non è ancora implementata
 - AI Settings collegato a Piano settimanale e Obiettivo del giorno
+- Learning Plan
+- Storico learning plan
+- Eliminazione ultimo learning plan
+- Visualizzazione ultimo learning plan nella Dashboard
+- Contatore Learning nella Dashboard
 
 
 ## AI mock mode
@@ -129,12 +134,26 @@ aiCoding-growth-agent/
 │   ├── roadmap.py
 │   ├── skill_tracker.py
 │   └── technical_notes.py
+│   └── learning.py
 ├── utils/
 │   ├── json_handler.py
 │   ├── planner_rules.py
 │   └── markdown_exporter.py
 │   └── ai_clients.py
 ├── data/
+│   └── ai_settings.json
+│   └── checklists.json
+│   └── daily_goals.json
+│   └── learning_plans.json
+│   └── learning.json
+│   └── profile.json
+│   └── progress.json
+│   └── projects.json
+│   └── roadmap.json
+│   └── skills.json
+│   └── technical_notes.json
+│   └── weekly_focus.json
+│   └──weekly_plan.json
 ├── exports/
 ├── requirements.txt
 └── .gitignore
