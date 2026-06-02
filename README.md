@@ -117,7 +117,7 @@ aiCoding-growth-agent/
 ├── app.py
 ├── assets/
 │   └── dashboard.png
-├── pages/
+├── app_pages/
 │   ├── dashboard.py
 │   ├── profile.py
 │   ├── weekly_plan.py

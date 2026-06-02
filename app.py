@@ -198,6 +198,7 @@ page = st.sidebar.radio(
         "AI Settings"
     ]
 )
+
 if page == "Dashboard":
     render_dashboard(
         PROFILE_PATH,
@@ -208,7 +209,8 @@ if page == "Dashboard":
         SKILLS_PATH,
         WEEKLY_FOCUS_PATH,
         DAILY_GOALS_PATH,
-        TECHNICAL_NOTES_PATH
+        TECHNICAL_NOTES_PATH,
+        LEARNING_PLANS_PATH
     )
 
 

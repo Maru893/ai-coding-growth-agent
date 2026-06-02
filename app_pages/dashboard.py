@@ -24,7 +24,8 @@ def render_dashboard(
     skills_path,
     weekly_focus_path,
     daily_goals_path,
-    technical_notes_path
+    technical_notes_path,
+    learning_plans_path
 ):
     st.title("Dashboard")
     st.caption("Controlla il riepilogo del tuo percorso, il focus attuale e le ultime attività salvate.")
@@ -38,6 +39,7 @@ def render_dashboard(
     weekly_focus = load_json(weekly_focus_path, [])
     daily_goals = load_json(daily_goals_path, [])
     technical_notes = load_json(technical_notes_path, [])
+    learning_plans = load_json(learning_plans_path, [])
 
     st.header("Riepilogo")
 
@@ -68,6 +70,11 @@ def render_dashboard(
 
     with col8:
         render_metric_card("Note", len(technical_notes))
+
+    col9, col10, col11, col12 = st.columns(4)
+
+    with col9:
+        render_metric_card("Learning", len(learning_plans))    
 
     st.header("Focus operativo")
 
@@ -155,6 +162,21 @@ def render_dashboard(
                 st.write(f"Cosa ho imparato: {last_note.get('lesson', 'Non impostato')}")
             else:
                 st.info("Non hai ancora salvato note tecniche.")
+
+    st.header("Apprendimento")
+
+    with st.container(border=True):
+        st.subheader("Ultimo learning plan")
+
+    if learning_plans:
+        last_learning_plan = learning_plans[-1]
+        st.write(f"Skill: {last_learning_plan.get('skill', 'Non impostata')}")
+        st.write(f"Livello: {last_learning_plan.get('current_level', 'Non impostato')}")
+        st.write(f"Tempo disponibile: {last_learning_plan.get('available_time', 'Non impostato')}")
+        st.write(f"Obiettivo: {last_learning_plan.get('learning_goal', 'Non impostato')}")
+        st.write(f"Azione suggerita: {last_learning_plan.get('suggested_action', 'Non impostata')}")
+    else:
+        st.info("Non hai ancora salvato learning plan.")            
 
     st.header("Percorso tecnico")
 
