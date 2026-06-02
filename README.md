@@ -77,7 +77,7 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Eliminazione ultimo learning plan
 - Visualizzazione ultimo learning plan nella Dashboard
 - Contatore Learning nella Dashboard
-
+- Refactor del mock AI client con funzioni dedicate per ogni modalità
 
 ## AI mock mode
 

@@ -52,11 +52,58 @@ def get_default_mock_response():
         ]
     }
 
+def detect_prompt_keywords(prompt):
+    """
+    Analizza il prompt e restituisce suggerimenti extra
+    in base alle parole chiave trovate.
+    """
+
+    prompt_lower = prompt.lower()
+
+    keyword_suggestions = []
+
+    if "python" in prompt_lower:
+        keyword_suggestions.append(
+            "Dedica attenzione a funzioni, input, output e gestione errori in Python."
+        )
+
+    if "streamlit" in prompt_lower:
+        keyword_suggestions.append(
+            "Verifica che la UI sia chiara e che form, bottoni e sidebar funzionino correttamente."
+        )
+
+    if "json" in prompt_lower:
+        keyword_suggestions.append(
+            "Controlla che lettura, scrittura e struttura dei file JSON siano coerenti."
+        )
+
+    if "github" in prompt_lower:
+        keyword_suggestions.append(
+            "Aggiorna README e fai un commit chiaro dopo aver completato il task."
+        )
+
+    if "debug" in prompt_lower or "errore" in prompt_lower:
+        keyword_suggestions.append(
+            "Isola l’errore, leggi il traceback e salva la soluzione nelle Note Tecniche."
+        )
+
+    if "readme" in prompt_lower:
+        keyword_suggestions.append(
+            "Aggiorna la documentazione per spiegare cosa hai cambiato e perché."
+        )
+
+    if "api" in prompt_lower:
+        keyword_suggestions.append(
+            "Gestisci errori, chiavi ambiente e casi in cui la API non è configurata."
+        )
+
+    return keyword_suggestions
+
 
 def generate_mock_ai_response(prompt, mode="weekly_plan"):
     """
     Simula una risposta AI senza usare API esterne.
-    Il parametro prompt è accettato per mantenere la stessa struttura della futura API reale.
+    Usa alcune parole chiave del prompt per aggiungere suggerimenti più specifici.
     """
 
     mock_responses = {
@@ -66,8 +113,14 @@ def generate_mock_ai_response(prompt, mode="weekly_plan"):
     }
 
     response_function = mock_responses.get(mode, get_default_mock_response)
+    response = response_function()
 
-    return response_function()
+    extra_suggestions = detect_prompt_keywords(prompt)
+
+    if extra_suggestions:
+        response["suggestions"] = response.get("suggestions", []) + extra_suggestions
+
+    return response
 
 def get_ai_environment_status():
     """

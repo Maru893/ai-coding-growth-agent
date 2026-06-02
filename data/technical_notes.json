@@ -22,5 +22,13 @@
     "solution": "La pagina genera un piano con regole Python, poi aggiunge un suggerimento AI simulato usando ai_client.py.",
     "lesson": "Una pagina può diventare più intelligente quando legge contesto da più file JSON.",
     "next_action": "Migliorare la qualità dei suggerimenti AI simulati o collegare API reale più avanti."
+  },
+  {
+    "category": "AI Logic",
+    "title": "Refactor mock AI responses",
+    "problem": "",
+    "solution": "",
+    "lesson": "Ho separato le risposte mock in funzioni dedicate e usato un dizionario per scegliere la funzione corretta in base alla modalità.",
+    "next_action": "Applicare lo stesso approccio quando aggiungerò nuove modalità AI."
   }
 ]
