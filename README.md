@@ -242,3 +242,24 @@ Durante lo sviluppo di questo progetto ho praticato:
 - Aggiungere filtri per skill, progetti e progressi
 - Esportare più sezioni in Markdown
 - Preparare una demo pubblica con Streamlit Community Cloud
+
+## Collegamento con la specializzazione Agentic AI & Python
+
+Questo progetto nasce dopo la specializzazione Aulab in Agentic AI & Python.
+
+Competenze applicate:
+- Python modulare
+- gestione file JSON
+- separazione tra UI e logica
+- Git/GitHub
+- gestione .env
+- mock AI
+- preparazione a integrazione API LLM
+
+Competenze da integrare in futuro:
+- Poetry
+- Pydantic
+- FastAPI
+- RAG
+- Agents
+- LangChain/LangGraph
