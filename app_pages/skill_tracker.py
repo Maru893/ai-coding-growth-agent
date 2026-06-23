@@ -1,13 +1,15 @@
 import streamlit as st
 
 from utils.json_handler import load_json, save_json
-
+from utils.models import Skill
 
 def render_skill_tracker(skills_path):
     st.title("Skill Tracker")
     st.caption("Monitora le competenze che stai costruendo nel tuo percorso di Coding AI.")
 
     st.header("Nuova skill")
+
+    skills = load_json(skills_path, [])
 
     with st.container(border=True):
         with st.form("skill_form"):
@@ -56,19 +58,17 @@ def render_skill_tracker(skills_path):
             submitted_skill = st.form_submit_button("Salva skill")
 
     if submitted_skill:
-        skill_entry = {
-            "skill": skill_name_input,
-            "level": skill_level_input,
-            "confidence": confidence_input,
-            "notes": notes_input,
-            "next_action": next_action_input
-        }
+        new_skill = Skill(
+            name=skill_name_input,
+            level="Da consolidare",
+            notes=notes_input,
+            next_action=next_action_input
+        )
 
-        existing_skills = load_json(skills_path, [])
-        existing_skills.append(skill_entry)
-        save_json(skills_path, existing_skills)
+        skills.append(new_skill.model_dump())
+        save_json(skills_path, skills)
 
-        st.success("Skill salvata correttamente.")
+        st.success("Skill salvata con successo!")
 
     saved_skills = load_json(skills_path, [])
 

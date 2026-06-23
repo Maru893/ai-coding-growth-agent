@@ -5,5 +5,11 @@
     "confidence": 2,
     "notes": "Ho praticato funzioni, import, path, JSON, gestione errori e struttura modulare.",
     "next_action": "Continuare con piccoli refactor e leggere il codice pagina per pagina."
+  },
+  {
+    "name": "Python",
+    "level": "Da consolidare",
+    "notes": "",
+    "next_action": "Fare un piccolo esercizio pratico."
   }
 ]
