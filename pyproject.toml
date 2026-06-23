@@ -1,0 +1,19 @@
+[project]
+name = "aicoding-growth-agent"
+version = "0.1.0"
+description = "AI Coding Growth Agent built with Streamlit"
+authors = [
+    {name = "Marouane El Mkharbech",email = "marouane97@live.it"}
+]
+readme = "README.md"
+requires-python = ">=3.9,<3.9.7 || >3.9.7,<3.10"
+dependencies = [
+    "streamlit (==1.50.0)",
+    "pydantic (==2.13.4)",
+    "python-dotenv (==1.2.1)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
