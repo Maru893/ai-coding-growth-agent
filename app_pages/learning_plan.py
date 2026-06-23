@@ -2,7 +2,7 @@ import streamlit as st
 
 from utils.json_handler import load_json, save_json
 from utils.ai_client import generate_ai_response
-
+from utils.models import LearningPlan
 
 def generate_learning_plan(skill, current_level, available_time, learning_goal):
     if available_time == "30 minuti":
@@ -100,17 +100,18 @@ def render_learning_plan(learning_plans_path, ai_settings_path):
             submitted_learning_plan = st.form_submit_button("Genera learning plan")
 
     if submitted_learning_plan:
-        learning_plan = generate_learning_plan(
+        learning_plan_data = generate_learning_plan(
             skill_input,
             current_level_input,
             available_time_input,
             learning_goal_input
         )
 
-        existing_plans = load_json(learning_plans_path, [])
-        existing_plans.append(learning_plan)
-        save_json(learning_plans_path, existing_plans)
+        learning_plan = LearningPlan(**learning_plan_data)
 
+        existing_plans = load_json(learning_plans_path, [])
+        existing_plans.append(learning_plan.model_dump())
+        save_json(learning_plans_path, existing_plans)
         st.success("Learning plan generato e salvato.")
 
         ai_prompt = f"""

@@ -23,3 +23,16 @@ class Project(BaseModel):
     status: str
     monetization: str = ""
     next_action: str = ""
+
+
+class LearningPlan(BaseModel):
+    skill: str
+    current_level: str
+    available_time: str
+    learning_goal: str
+    difficulty: str
+    study_block: str
+    practice_block: str
+    recap_block: str
+    suggested_action: str
+    checklist: list[str]

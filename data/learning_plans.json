@@ -16,5 +16,23 @@
       "Scrivere una nota tecnica",
       "Definire il prossimo passo"
     ]
+  },
+  {
+    "skill": "Python",
+    "current_level": "intermedio",
+    "available_time": "60 minuti",
+    "learning_goal": "Capire il concetto ",
+    "difficulty": "intermedio",
+    "study_block": "20 minuti teoria",
+    "practice_block": "30 minuti pratica",
+    "recap_block": "10 minuti note",
+    "suggested_action": "Usa Python per migliorare struttura, qualità o automazione del progetto.",
+    "checklist": [
+      "Capire il concetto principale",
+      "Fare un esempio pratico",
+      "Applicare il concetto al progetto",
+      "Scrivere una nota tecnica",
+      "Definire il prossimo passo"
+    ]
   }
 ]
