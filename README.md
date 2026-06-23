@@ -321,3 +321,19 @@ Avvio API:
 
 ```bash
 poetry run uvicorn api.main:app --reload --port 8080
+
+## PDF Knowledge Search
+
+Il progetto include una prima versione di ricerca locale sugli appunti Aulab in PDF.
+
+Flusso:
+
+- lettura dei PDF dalla cartella `knowledge_base/`
+- estrazione testo pagina per pagina con `pypdf`
+- ricerca keyword semplice
+- restituzione di fonte, pagina, score e snippet
+
+Endpoint:
+
+```bash
+GET /knowledge/search?query=RAG%20ChromaDB%20embeddings
