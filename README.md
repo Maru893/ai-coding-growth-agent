@@ -80,6 +80,12 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 - Refactor del mock AI client con funzioni dedicate per ogni modalità
 - Mock AI dinamico con keyword detection sul prompt
 - Learning Plan collegato ad AI Settings
+
+### Setup con Poetry
+
+```bash
+poetry install
+poetry run streamlit run app.py
 - Validazione dati con Pydantic per Skill, Daily Goal e Projects
 
 ## AI mock mode
@@ -264,4 +270,32 @@ Competenze da integrare in futuro:
 - RAG
 - Agents
 - LangChain/LangGraph
+
+## Recap AI Coding Growth Agent
+
+Core:
+- Streamlit app modulare
+- app_pages per le pagine
+- utils per logica riutilizzabile
+- data per storage JSON
+
+AI:
+- Mock AI centralizzato
+- AI Settings
+- gestione .env
+- fallback leggibile se API reale non è configurata
+
+Validazione:
+- Pydantic su Skill
+- Pydantic su DailyGoal
+- Pydantic su Project
+- Pydantic su LearningPlan
+
+Project setup:
+- requirements.txt ancora presente
+- pyproject.toml aggiunto
+- poetry.lock aggiunto
+- avvio con Poetry testato
+
+
 

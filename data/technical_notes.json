@@ -70,5 +70,13 @@
     "solution": "Ho creato un modello DailyGoal in utils/models.py con i campi reali usati dalla pagina Obiettivo del giorno: available_time, energy, activity_type, current_focus, daily_goal, suggested_task e next_action.\n",
     "lesson": "Il modello Pydantic deve rispecchiare i dati reali della pagina. Prima creo l’oggetto DailyGoal, poi uso model_dump() per trasformarlo in dizionario e salvarlo nel file JSON.",
     "next_action": "Applicare questa nota nel progetto."
+  },
+  {
+    "category": "Python",
+    "title": " Migrazione da requirements.txt a Poetry",
+    "problem": "\nIl progetto usava requirements.txt. Funzionava, ma Poetry permette una gestione più professionale delle dipendenze tramite pyproject.toml e poetry.lock.\n",
+    "solution": "Ho inizializzato Poetry, aggiunto le dipendenze principali e testato l’app con poetry run streamlit run app.py.\n",
+    "lesson": "Poetry controlla in modo rigoroso la compatibilità tra versioni Python e librerie. Ho dovuto adattare il range Python perché Streamlit esclude Python 3.9.7.",
+    "next_action": "Usare Poetry come metodo principale per avviare e mantenere il progetto."
   }
 ]
