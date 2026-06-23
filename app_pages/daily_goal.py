@@ -2,6 +2,7 @@ import streamlit as st
 
 from utils.json_handler import load_json, save_json
 from utils.ai_client import generate_ai_response
+from utils.models import DailyGoal
 
 
 def render_daily_goal(daily_goals_path, ai_settings_path):
@@ -9,6 +10,7 @@ def render_daily_goal(daily_goals_path, ai_settings_path):
     st.caption("Genera un micro obiettivo giornaliero in base al tempo e all’energia disponibili.")
 
     st.header("Nuovo obiettivo")
+    daily_goals = load_json(daily_goals_path, [])
 
     with st.container(border=True):
         with st.form("daily_goal_form"):
@@ -66,19 +68,18 @@ def render_daily_goal(daily_goals_path, ai_settings_path):
         else:
             suggested_task = "Rendi il codice più leggibile senza cambiare il comportamento."
 
-        daily_goal_entry = {
-            "available_time": available_time_input,
-            "energy": energy_input,
-            "activity_type": activity_type_input,
-            "current_focus": current_focus_input,
-            "daily_goal": daily_goal,
-            "suggested_task": suggested_task,
-            "next_action": next_action
-        }
+        daily_goal_entry = DailyGoal(
+            available_time=available_time_input,
+            energy=energy_input,
+            activity_type=activity_type_input,
+            current_focus=current_focus_input,
+            daily_goal=daily_goal,
+            suggested_task=suggested_task,
+            next_action=next_action
+        )
 
-        existing_daily_goals = load_json(daily_goals_path, [])
-        existing_daily_goals.append(daily_goal_entry)
-        save_json(daily_goals_path, existing_daily_goals)
+        daily_goals.append(daily_goal_entry.model_dump())
+        save_json(daily_goals_path, daily_goals)
 
         st.success("Obiettivo del giorno generato e salvato.")
 

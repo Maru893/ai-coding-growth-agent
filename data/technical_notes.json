@@ -54,5 +54,13 @@
     "solution": "",
     "lesson": "Leggere il testo del prompt.\nCercare parole chiave.\nAggiungere suggerimenti extra.\nMantenere il comportamento attuale se non trova parole chiave.",
     "next_action": ""
+  },
+  {
+    "category": "Python",
+    "title": "Validare una skill con Pydantic",
+    "problem": "Prima salvavo una skill come dizionario libero. Questo funzionava, ma non dava una struttura controllata ai dati.\n",
+    "solution": "Ho creato un modello Pydantic Skill in utils/models.py e lo uso nello Skill Tracker prima di salvare i dati nel file JSON.\n\n",
+    "lesson": "Pydantic permette di definire campi, tipi e valori di default. Dopo la validazione posso usare model_dump() per trasformare il modello in un dizionario salvabile in JSON.",
+    "next_action": "Applicare questa nota nel progetto."
   }
 ]

@@ -263,3 +263,16 @@ Competenze da integrare in futuro:
 - RAG
 - Agents
 - LangChain/LangGraph
+
+#### Categoria: Python / Pydantic
+
+Titolo: Validare una skill con Pydantic
+
+Problema o concetto:
+Prima salvavo una skill come dizionario libero. Questo funzionava, ma non dava una struttura controllata ai dati.
+
+Soluzione:
+Ho creato un modello Pydantic Skill in utils/models.py e lo uso nello Skill Tracker prima di salvare i dati nel file JSON.
+
+Cosa ho imparato:
+Pydantic permette di definire campi, tipi e valori di default. Dopo la validazione posso usare model_dump() per trasformare il modello in un dizionario salvabile in JSON.

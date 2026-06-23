@@ -16,5 +16,14 @@
     "daily_goal": "Completa un micro task molto piccolo e chiaro.",
     "suggested_task": "Scrivi o migliora una funzione collegata al progetto.",
     "next_action": "Fai un task tecnico mirato senza aggiungere troppe cose nuove."
+  },
+  {
+    "available_time": "60 minuti",
+    "energy": 3,
+    "activity_type": "Codice",
+    "current_focus": "AI Coding Growth Agent",
+    "daily_goal": "Studia un concetto e applicalo subito con un esercizio pratico.",
+    "suggested_task": "Scrivi o migliora una funzione collegata al progetto.",
+    "next_action": "Fai un task tecnico mirato senza aggiungere troppe cose nuove."
   }
 ]
