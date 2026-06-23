@@ -271,31 +271,53 @@ Competenze da integrare in futuro:
 - Agents
 - LangChain/LangGraph
 
-## Recap AI Coding Growth Agent
+# AI Coding Growth Agent v1.0.0
 
-Core:
-- Streamlit app modulare
-- app_pages per le pagine
-- utils per logica riutilizzabile
-- data per storage JSON
+Prima versione stabile portfolio.
 
-AI:
-- Mock AI centralizzato
+## Funzionalità principali
+
+- Dashboard Streamlit
+- Gestione profilo
+- Piano settimanale
+- Obiettivo del giorno
+- Skill Tracker
+- Projects
+- Learning Plan
+- Technical Notes
 - AI Settings
-- gestione .env
-- fallback leggibile se API reale non è configurata
+- Mock AI centralizzato
+- Validazione dati con Pydantic
+- Setup con Poetry
 
-Validazione:
-- Pydantic su Skill
-- Pydantic su DailyGoal
-- Pydantic su Project
-- Pydantic su LearningPlan
+## Miglioramenti tecnici
 
-Project setup:
-- requirements.txt ancora presente
-- pyproject.toml aggiunto
-- poetry.lock aggiunto
-- avvio con Poetry testato
+- Struttura modulare con app_pages e utils
+- Storage JSON locale
+- Gestione .env
+- pyproject.toml e poetry.lock
+- README aggiornato con screenshot
+
+## Contesto
+
+Progetto personale creato dopo la specializzazione Aulab in Agentic AI & Python.
 
 
 
+## Mini backend FastAPI
+
+Il progetto include una piccola API FastAPI per leggere i dati JSON salvati dall'app.
+
+Endpoint disponibili:
+
+- `GET /`
+- `GET /health`
+- `GET /skills`
+- `GET /projects`
+- `GET /daily-goals`
+- `GET /learning-plans`
+
+Avvio API:
+
+```bash
+poetry run uvicorn api.main:app --reload --port 8080
