@@ -62,5 +62,13 @@
     "solution": "Ho creato un modello Pydantic Skill in utils/models.py e lo uso nello Skill Tracker prima di salvare i dati nel file JSON.\n\n",
     "lesson": "Pydantic permette di definire campi, tipi e valori di default. Dopo la validazione posso usare model_dump() per trasformare il modello in un dizionario salvabile in JSON.",
     "next_action": "Applicare questa nota nel progetto."
+  },
+  {
+    "category": "Python",
+    "title": "Validare Daily Goal con Pydantic",
+    "problem": "Prima l’obiettivo giornaliero veniva salvato come dizionario libero. Questo funzionava, ma non garantiva una struttura controllata dei dati.\n",
+    "solution": "Ho creato un modello DailyGoal in utils/models.py con i campi reali usati dalla pagina Obiettivo del giorno: available_time, energy, activity_type, current_focus, daily_goal, suggested_task e next_action.\n",
+    "lesson": "Il modello Pydantic deve rispecchiare i dati reali della pagina. Prima creo l’oggetto DailyGoal, poi uso model_dump() per trasformarlo in dizionario e salvarlo nel file JSON.",
+    "next_action": "Applicare questa nota nel progetto."
   }
 ]

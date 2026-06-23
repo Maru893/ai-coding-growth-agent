@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "name": "AI Coding Growth Agent",
+    "goal": "pratica e progressi nel Coding AI.",
+    "skill": "Python",
+    "status": "Da migliorare",
+    "monetization": "Potrebbe diventare una dashboard personalizzata per studenti, junior developer o freelance.",
+    "next_action": "Migliorare la struttura e aggiungere una nuova feature."
+  }
+]

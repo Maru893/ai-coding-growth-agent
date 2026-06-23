@@ -15,3 +15,11 @@ class DailyGoal(BaseModel):
     daily_goal: str
     suggested_task: str
     next_action: str
+
+class Project(BaseModel):
+    name: str
+    goal: str
+    skill: str
+    status: str
+    monetization: str = ""
+    next_action: str = ""

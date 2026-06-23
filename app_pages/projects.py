@@ -1,11 +1,16 @@
 import streamlit as st
 
 from utils.json_handler import load_json, save_json
+from utils.models import Project
 
 
 def render_projects(projects_path):
     st.title("Progetti")
-    st.caption("Organizza i mini progetti del tuo percorso, collegandoli a skill, stato, problema risolto e possibile uso monetizzabile.")
+    st.caption(
+        "Organizza i mini progetti del tuo percorso, collegandoli a skill, stato, problema risolto e possibile uso monetizzabile."
+    )
+
+    projects = load_json(projects_path, [])
 
     st.header("Nuovo progetto")
 
@@ -44,18 +49,17 @@ def render_projects(projects_path):
             submitted_project = st.form_submit_button("Salva progetto")
 
     if submitted_project:
-        project_entry = {
-            "name": project_name_input,
-            "problem_solved": project_goal_input,
-            "main_skill": skill_input,
-            "status": project_status_input,
-            "monetization": monetization_input,
-            "next_action": next_action_input
-        }
+        new_project = Project(
+            name=project_name_input,
+            goal=project_goal_input,
+            skill=skill_input,
+            status=project_status_input,
+            monetization=monetization_input,
+            next_action=next_action_input
+        )
 
-        existing_projects = load_json(projects_path, [])
-        existing_projects.append(project_entry)
-        save_json(projects_path, existing_projects)
+        projects.append(new_project.model_dump())
+        save_json(projects_path, projects)
 
         st.success("Progetto salvato correttamente.")
 
@@ -67,8 +71,8 @@ def render_projects(projects_path):
         if saved_projects:
             last_project = saved_projects[-1]
             st.write(f"Nome: {last_project.get('name', 'Non impostato')}")
-            st.write(f"Problema che risolve: {last_project.get('problem_solved', 'Non impostato')}")
-            st.write(f"Skill principale: {last_project.get('main_skill', 'Non impostata')}")
+            st.write(f"Problema che risolve: {last_project.get('goal', 'Non impostato')}")
+            st.write(f"Skill principale: {last_project.get('skill', 'Non impostata')}")
             st.write(f"Stato: {last_project.get('status', 'Non impostato')}")
             st.write(f"Possibile uso monetizzabile: {last_project.get('monetization', 'Non impostato')}")
             st.write(f"Prossima azione: {last_project.get('next_action', 'Non impostata')}")
@@ -80,8 +84,8 @@ def render_projects(projects_path):
     if saved_projects:
         for index, project in enumerate(reversed(saved_projects), start=1):
             with st.expander(f"Progetto {index} - {project.get('name', 'Nome non impostato')}"):
-                st.write(f"Problema che risolve: {project.get('problem_solved', 'Non impostato')}")
-                st.write(f"Skill principale: {project.get('main_skill', 'Non impostata')}")
+                st.write(f"Problema che risolve: {project.get('goal', 'Non impostato')}")
+                st.write(f"Skill principale: {project.get('skill', 'Non impostata')}")
                 st.write(f"Stato: {project.get('status', 'Non impostato')}")
                 st.write(f"Possibile uso monetizzabile: {project.get('monetization', 'Non impostato')}")
                 st.write(f"Prossima azione: {project.get('next_action', 'Non impostata')}")
