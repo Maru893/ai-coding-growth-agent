@@ -8,7 +8,7 @@ L'obiettivo è aiutarmi a pianificare il mio percorso nel Coding AI, partendo da
 
 ### Dashboard
 
-![Dashboard](/assets/dashboard.png)
+![Dashboard](./assets/dashboard.png)
 
 ## Stack
 
